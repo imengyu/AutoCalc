@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="5" android:drawable="@drawable/iconmv0001" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0002" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0003" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0004" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0005" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0006" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0007" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0008" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0009" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0010" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0011" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0012" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0013" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0014" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0015" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0017" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0018" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0019" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0020" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0021" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0022" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0023" />
+    <item android:duration="5" android:drawable="@drawable/iconmv0024" />
+</animation-list>

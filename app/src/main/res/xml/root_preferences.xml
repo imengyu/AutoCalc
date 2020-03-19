@@ -1,0 +1,63 @@
+<!--
+  ~ Copyright 2018 The app Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/settings_general_header">
+
+        <ListPreference
+            android:entries="@array/history_count_entries"
+            android:entryValues="@array/history_count_values"
+            android:key="calc_history_count"
+            android:persistent="false"
+            android:title="@string/settings_key_history_count"
+            app:defaultValue="20"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:entries="@array/computation_accuracy_count_entries"
+            android:entryValues="@array/computation_accuracy_count_values"
+            android:key="calc_computation_accuracy"
+            android:persistent="false"
+            android:title="@string/settings_key_computation_accuracy"
+            app:defaultValue="8"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="calc_record_step"
+            app:summary="@string/settings_key_record_step_summary"
+            app:title="@string/settings_key_record_step" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/settings_others_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="calc_use_vibrator"
+            app:title="@string/settings_key_vibrator" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

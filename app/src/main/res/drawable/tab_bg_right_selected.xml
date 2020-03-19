@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:topRightRadius="100.0dip" android:bottomRightRadius="100.0dip" />
+    <solid android:color="@color/btn_pad_press" />
+    <stroke android:width="1.0px" android:color="@color/tab_stroke" />
+</shape>

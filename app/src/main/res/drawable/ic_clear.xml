@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="26dp"
+    android:height="26dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+
+    <path
+        android:fillColor="@color/btn_pad_symbol"
+        android:pathData="M835.2 332.8c-19.2 0-32 12.8-32 32v473.6c0 16-12.8 25.6-25.6 25.6H243.2c-16 0-25.6-12.8-25.6-25.6V364.8c0-19.2-12.8-32-32-32s-32 12.8-32 32v473.6c0 51.2 41.6 89.6 89.6 89.6h531.2c51.2 0 89.6-41.6 89.6-89.6V364.8c3.2-19.2-9.6-32-28.8-32zM896 214.4h-208V160c0-35.2-28.8-64-64-64h-224c-35.2 0-64 28.8-64 64v54.4H128c-19.2 0-32 12.8-32 32s12.8 32 32 32h768c19.2 0 32-12.8 32-32s-12.8-32-32-32zM400 160h224v48h-224V160z" />
+    <path
+        android:fillColor="@color/btn_pad_symbol"
+        android:pathData="M368 745.6c6.4 6.4 16 9.6 22.4 9.6s16-3.2 22.4-9.6l96-96 96 96c6.4 6.4 16 9.6 22.4 9.6s16-3.2 22.4-9.6c12.8-12.8 12.8-32 0-44.8l-96-96 92.8-92.8c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0l-92.8 92.8-92.8-92.8c-12.8-12.8-32-12.8-44.8 0s-12.8 32 0 44.8l92.8 92.8-96 96c-12.8 12.8-12.8 32 0 44.8z" />
+
+</vector>

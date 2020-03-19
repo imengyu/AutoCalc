@@ -1,0 +1,131 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="history_count_entries">
+        <item>10 条</item>
+        <item>20 条</item>
+        <item>30 条</item>
+        <item>40 条</item>
+        <item>50 条</item>
+    </string-array>
+
+    <string-array name="history_count_values" translatable="false">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="computation_accuracy_count_entries">
+        <item>不保留小数</item>
+        <item>1 位小数</item>
+        <item>2 位小数</item>
+        <item>3 位小数</item>
+        <item>5 位小数</item>
+        <item>6 位小数</item>
+        <item>7 位小数</item>
+        <item>8 位小数</item>
+        <item>9 位小数</item>
+        <item>10 位小数</item>
+        <item>15 位小数</item>
+        <item>20 位小数</item>
+        <item>25 位小数</item>
+        <item>30 位小数</item>
+    </string-array>
+
+    <string-array name="computation_accuracy_count_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
+
+    <!-- Functions help -->
+    <string-array name="functions_help_names" translatable="false">
+        <item>sin(x)</item>
+        <item>cos(x)</item>
+        <item>tan(x)</item>
+        <item>arcsin(x)</item>
+        <item>arccos(x)</item>
+        <item>arctan(x)</item>
+        <item>sinh(x)</item>
+        <item>cosh(x)</item>
+        <item>tanh(x)</item>
+        <item>lg(n)</item>
+        <item>ln(n)</item>
+        <item>log(n, a)</item>
+        <item>exp(n)</item>
+
+        <item>abs(x)</item>
+        <item>sqrt(x)</item>
+        <item>cbrt(n)</item>
+        <item>pow(x, n)</item>
+        <item>fact(n)</item>
+        <item>g2d(g)</item>
+        <item>d2g(d)</item>
+        <item>negate(x)</item>
+        <item>hypot(a, b)</item>
+        <item>log1p(n)</item>
+        <item>expm1(x)</item>
+        <item>cell(x)</item>
+        <item>floor(x)</item>
+        <item>fix(d)</item>
+        <item>bin(x)</item>
+        <item>oct(d)</item>
+        <item>dec(x)</item>
+        <item>hex(d)</item>
+        <item>radix(a, b)</item>
+        <item>rand()</item>
+        <item>rnd(a, b)</item>
+    </string-array>
+
+    <string-array name="functions_help_texts">
+        <item>正弦函数</item>
+        <item>余弦函数</item>
+        <item>正切函数</item>
+        <item>反正弦函数</item>
+        <item>反余弦函数</item>
+        <item>反正切函数</item>
+        <item>双曲正弦函数</item>
+        <item>双曲余弦函数</item>
+        <item>双曲正切函数</item>
+        <item>以10为底的对数函数</item>
+        <item>以e为底的对数函数</item>
+        <item>以a为底的对数函数</item>
+        <item>以自然常数e为底的指数函数</item>
+        <item>绝对值函数</item>
+        <item>平方根函数</item>
+        <item>平方根函数</item>
+        <item>平方函数</item>
+        <item>阶乘函数</item>
+        <item>弧度转角度</item>
+        <item>角度转弧度</item>
+        <item>取反函数</item>
+        <item>计算直角三角形的斜边长</item>
+        <item>ln(1 + n)</item>
+        <item>exp(x) ^ -1</item>
+        <item>向上取整</item>
+        <item>向下取整</item>
+        <item>四舍五入取整</item>
+
+        <item>转为2进制（整数）</item>
+        <item>转为8进制（整数）</item>
+        <item>转为10进制（整数）</item>
+        <item>转为16进制（整数）</item>
+        <item>将 a 转为 b 进制（整数）</item>
+
+        <item>生成 [0, 1) 的随机数</item>
+        <item>生成 [a, b) 的随机数</item>
+    </string-array>
+
+</resources>
