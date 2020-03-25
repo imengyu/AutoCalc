@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private String text_error;
 
     private Button btn_pad_ac;
+    private Button btn_pad_dot;
     private Button btn_sin;
     private Button btn_cos;
     private Button btn_tan;
@@ -202,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_deg_rad = findViewById(R.id.btn_deg_rad);
+        btn_pad_dot = findViewById(R.id.btn_pad_dot);
         btn_pad_ac = findViewById(R.id.btn_pad_ac);
         btn_sin = findViewById(R.id.btn_sin);
         btn_cos = findViewById(R.id.btn_cos);
@@ -239,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_pad_del).setOnClickListener(v -> delText());
         findViewById(R.id.btn_pad_minus).setOnClickListener(v -> writeText("-", true, false));
         findViewById(R.id.btn_pad_div).setOnClickListener(v -> writeText("÷", true, false));
-        findViewById(R.id.btn_pad_dot).setOnClickListener(v -> writeText(".", false, false));
         findViewById(R.id.btn_pad_mul).setOnClickListener(v -> writeText("×", true, false));
         findViewById(R.id.btn_pad_plus).setOnClickListener(v -> writeText("+", true, false));
         findViewById(R.id.btn_pad_percent).setOnClickListener(v -> writeText(padMode == PAD_MODE_PROGRAMMER ? " mod " : "%", true, false));
@@ -263,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
         btn_sin.setOnClickListener(v -> { if(is2rnd) writeText("arcsin(", true, true); else writeText("sin(", true, true); });
         btn_cos.setOnClickListener(v -> { if(is2rnd) writeText("arccos(", true, true); else writeText("cos(", true, true); });
         btn_tan.setOnClickListener(v -> { if(is2rnd) writeText("arctan(", true, true); else writeText("tan(", true, true); });
+        btn_pad_dot.setOnClickListener(v -> writeText(is2rnd ? "," : ".", false, true));
 
         findViewById(R.id.btn_pad_equal).setOnClickListener(v -> { vibratorVibrate(); doCalc(); });
     }
@@ -422,10 +424,12 @@ public class MainActivity extends AppCompatActivity {
             btn_sin.setForeground(resources.getDrawable(R.drawable.arcsin, null));
             btn_cos.setForeground(resources.getDrawable(R.drawable.arccos, null));
             btn_tan.setForeground(resources.getDrawable(R.drawable.arctan, null));
+            btn_pad_dot.setForeground(resources.getDrawable(R.drawable.comma, null));
         }else{
             btn_sin.setForeground(resources.getDrawable(R.drawable.sin, null));
             btn_cos.setForeground(resources.getDrawable(R.drawable.cos, null));
             btn_tan.setForeground(resources.getDrawable(R.drawable.tan, null));
+            btn_pad_dot.setForeground(resources.getDrawable(R.drawable.btn_pad_dot, null));
         }
     }
     private void updateDegRad() {
@@ -579,7 +583,9 @@ public class MainActivity extends AppCompatActivity {
             text_main_pre_result.setVisibility(View.GONE);
         } else {
             text_main_pre_result.setVisibility(View.VISIBLE);
-            if (!autoCalc.isOperator(formula.charAt(formula.length() - 1)) && formula.charAt(formula.length() - 1) != '(') {
+            if (!(autoCalc.isOperator(formula.charAt(formula.length() - 1), AutoCalc.OP_TYPE_BOTH)
+                || autoCalc.isOperator(formula.charAt(formula.length() - 1), AutoCalc.OP_TYPE_START))
+                    && formula.charAt(formula.length() - 1) != '(') {
                 String result = autoCalc.calc(formula);
                 StringBuilder sb = new StringBuilder("=");
 

@@ -1,5 +1,7 @@
 package com.dreamfish.com.autocalc.core;
 
+import android.os.Build;
+
 import java.util.*;
 import java.math.*;
 
@@ -341,7 +343,8 @@ public class AutoCalc {
       this.type = type;
       this.priority = priority;
       this.checkOpSymbols.addAll(Arrays.asList(checkOpSymbols));
-      operators.addAll(Arrays.asList(checkOpSymbols));
+      for(String s : checkOpSymbols)
+        operators.add(new OperatorInfo(s, type));
     }
 
     //可被继承的函数
@@ -593,7 +596,9 @@ public class AutoCalc {
   public void addCalcOperatorSolver(AutoCalcOperatorSolver solver) {
     if (!isCalcOperatorSolverExists(solver.name)) {
       operatorSolvers.add(solver);
-      operatorSolvers.sort((o1, o2) -> -Integer.compare(o1.priority, o2.priority));
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        operatorSolvers.sort((o1, o2) -> -Integer.compare(o1.priority, o2.priority));
+      }
     }
   }
 
@@ -714,10 +719,20 @@ public class AutoCalc {
    * 按优先级从大到小排序
    */
   private Map<String, Double> constants = new HashMap<>();
+
+  private class OperatorInfo {
+    String operator;
+    int type;
+
+    public OperatorInfo(String operator, int type) {
+      this.operator = operator;
+      this.type = type;
+    }
+  }
   /**
    * 所有运算符
    */
-  private List<String> operators = new ArrayList<>();
+  private List<OperatorInfo> operators = new ArrayList<>();
 
   /**
    * 计算主函数
@@ -1129,16 +1144,26 @@ public class AutoCalc {
   //判断函数
 
   public boolean containsOperator(String s) {
-    for (String operator : operators)
-      if(s.contains(operator)) return true; return false;
+    for (OperatorInfo operator : operators)
+      if(s.contains(operator.operator)) return true;
+    return false;
   }
   public boolean isOperator(String s) {
     return operators.contains(s);
   }
   public boolean isOperator(char s) {
-    for (String operator : operators)
-      if (operator.length() == 1 && operator.charAt(0) == s)
+    for (OperatorInfo operator : operators)
+      if (operator.operator.length() == 1 && operator.operator.charAt(0) == s)
         return true;
+    return false;
+  }
+  public boolean isOperator(char s, int opType) {
+    for (OperatorInfo operator : operators)
+      if (operator.operator.length() == 1 && operator.operator.charAt(0) == s) {
+        if (operator.type == opType)
+          return true;
+        break;
+      }
     return false;
   }
   public boolean isOperatorWithoutAddSub(char s) {
@@ -1233,8 +1258,6 @@ public class AutoCalc {
 
     PowOperatorSolver() {
       super("Pow", 8, OP_TYPE_BOTH, new String[] { "^" });
-
-      checkOpSymbols.add("^");
     }
 
     @Override
@@ -1269,10 +1292,7 @@ public class AutoCalc {
   private class SquareRootAndCubeRootOperatorSolver extends AutoCalcOperatorSolver {
 
     SquareRootAndCubeRootOperatorSolver() {
-      super("SquareRootAndCubeRoot", 10, OP_TYPE_START, new String[] { "%" });
-
-      checkOpSymbols.add("√");
-      checkOpSymbols.add("∛");
+      super("SquareRootAndCubeRoot", 10, OP_TYPE_START, new String[] { "√", "∛" });
     }
 
     @Override
