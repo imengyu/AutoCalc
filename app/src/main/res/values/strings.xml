@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AutoCalc</string>
     <string name="app_description">一款超级简单的 Android 计算器</string>
-    <string name="app_version">V.1.0.0</string>
+    <string name="app_version">V.1.0.1</string>
     <string name="app_copyright">© 2020 By 梦欤</string>
     <string name="app_description_long">这是一款超级简单的 Android 计算器，是我的学习作品</string>
 
@@ -19,8 +19,7 @@
     <string name="action_cancel">取消</string>
 
     <string name="text_zero">0</string>
-    <string name="text_help_top">这个计算器非常普通，您可以按照平常的使用方法来使用，不需要什么特别说明</string>
-    <string name="text_help_1">只是有一点，它对算式非常敏感，您在输入算式的时候千万不要忘记任何一个括号</string>
+    <string name="text_help_top">您可以在我的 Github 上查看此计算器的源代码。您可以点击“菜单”&gt;“帮助”了解更多帮助信息。</string>
 
     <string name="text_dec">十进制</string>
     <string name="text_oct">八进制</string>
@@ -31,6 +30,7 @@
 
     <string name="text_history_cleared">所有历史记录已清空</string>
     <string name="text_error">错误</string>
+    <string name="text_auto_bc_error">数值超出运算范围</string>
     <string name="text_use_deg">当前使用角度制</string>
     <string name="text_use_rad">当前使用弧度制</string>
 
@@ -43,8 +43,10 @@
 
     <string name="text_click_to_input_function">您可以点击某个函数进行输入</string>
     <string name="text_custom_input">您可以手动输入算式进行计算，例如 1 + 2 * 16 + cos(pi)</string>
+    <string name="text_help_1">此计算对算式非常敏感，您在输入算式的时候格式必须正确，千万不要忘记任何一个括号</string>
 
     <string name="title_activity_about">关于 AutoCalc</string>
+    <string name="title_activity_help">AutoCalc 帮助</string>
     <string name="title_activity_settings">设置</string>
 
     <string name="title_show_functions">所有函数</string>

@@ -45,8 +45,7 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/show_screen_display_color"
                 android:textIsSelectable="true"
-                android:singleLine="true"
-                android:maxLines="2"
+                android:singleLine="false"
                 android:textSize="50sp"
                 app:minTextSize="22sp" />
 
@@ -58,10 +57,9 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/show_screen_display_color"
                 android:textIsSelectable="true"
-                android:maxLines="2"
                 android:textSize="32sp"
                 android:visibility="gone"
-                android:singleLine="true"
+                android:singleLine="false"
                 app:minTextSize="16sp"  />
 
             <LinearLayout
@@ -84,7 +82,7 @@
                         android:background="@color/colorTransparent"
                         android:button="@color/colorTransparent"
                         android:checked="false"
-                        android:drawableLeft="@drawable/btn_check_box"
+                        android:drawableStart="@drawable/btn_check_box"
                         android:drawablePadding="8dp"
                         android:text="@string/text_bin" />
 
@@ -113,7 +111,7 @@
                         android:background="@color/colorTransparent"
                         android:button="@color/colorTransparent"
                         android:checked="false"
-                        android:drawableLeft="@drawable/btn_check_box"
+                        android:drawableStart="@drawable/btn_check_box"
                         android:drawablePadding="8dp"
                         android:text="@string/text_oct" />
 
@@ -142,7 +140,7 @@
                         android:background="@color/colorTransparent"
                         android:button="@color/colorTransparent"
                         android:checked="false"
-                        android:drawableLeft="@drawable/btn_check_box"
+                        android:drawableStart="@drawable/btn_check_box"
                         android:drawablePadding="8dp"
                         android:text="@string/text_dec" />
 
@@ -171,7 +169,7 @@
                         android:background="@color/colorTransparent"
                         android:button="@color/colorTransparent"
                         android:checked="false"
-                        android:drawableLeft="@drawable/btn_check_box"
+                        android:drawableStart="@drawable/btn_check_box"
                         android:drawablePadding="8dp"
                         android:text="@string/text_hex" />
 

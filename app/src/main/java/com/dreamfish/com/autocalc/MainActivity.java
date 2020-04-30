@@ -39,6 +39,7 @@ import com.dreamfish.com.autocalc.database.CalcHistoryDatabaseHelper;
 import com.dreamfish.com.autocalc.database.CalcHistoryDbSchema;
 import com.dreamfish.com.autocalc.utils.AlertDialogTool;
 import com.dreamfish.com.autocalc.utils.PixelTool;
+import com.dreamfish.com.autocalc.widgets.AutofitTextView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         resources = this.getResources();
         text_error = resources.getString(R.string.text_error);
+        text_auto_bc_error = (String) resources.getText(R.string.text_auto_bc_error);
 
         layout_top.setVerticalFadingEdgeEnabled(true);
         layout_top.setFadingEdgeLength(50);
@@ -111,17 +113,20 @@ public class MainActivity extends AppCompatActivity {
     private Resources resources;
 
     private String text_error;
+    private String text_auto_bc_error;
 
     private Button btn_pad_ac;
     private Button btn_pad_dot;
+    private Button btn_pad_sqrt;
     private Button btn_sin;
+    private Button btn_2nd;
     private Button btn_cos;
     private Button btn_tan;
 
     private Button btn_deg_rad;
 
-    private TextView text_main;
-    private TextView text_main_pre_result;
+    private AutofitTextView text_main;
+    private AutofitTextView text_main_pre_result;
 
     private TextView text_oct;
     private TextView text_bin;
@@ -174,6 +179,12 @@ public class MainActivity extends AppCompatActivity {
 
         text_main = findViewById(R.id.text_main);
         text_main_pre_result = findViewById(R.id.text_main_pre_result);
+        text_main.setLines(1);
+        text_main.setMaxLines(3);
+        text_main.setSizeToFit(true);
+        text_main_pre_result.setLines(1);
+        text_main_pre_result.setMaxLines(5);
+        text_main_pre_result.setSizeToFit(true);
 
         text_oct = findViewById(R.id.text_oct);
         text_bin = findViewById(R.id.text_bin);
@@ -204,10 +215,12 @@ public class MainActivity extends AppCompatActivity {
 
         btn_deg_rad = findViewById(R.id.btn_deg_rad);
         btn_pad_dot = findViewById(R.id.btn_pad_dot);
+        btn_pad_sqrt = findViewById(R.id.btn_sqrt);
         btn_pad_ac = findViewById(R.id.btn_pad_ac);
         btn_sin = findViewById(R.id.btn_sin);
         btn_cos = findViewById(R.id.btn_cos);
         btn_tan = findViewById(R.id.btn_tan);
+        btn_2nd = findViewById(R.id.btn_2nd);
 
         findViewById(R.id.btn_pad_number_0).setOnClickListener(v -> writeText("0", false, false));
         findViewById(R.id.btn_pad_number_1).setOnClickListener(v -> writeText("1", false, false));
@@ -245,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_pad_plus).setOnClickListener(v -> writeText("+", true, false));
         findViewById(R.id.btn_pad_percent).setOnClickListener(v -> writeText(padMode == PAD_MODE_PROGRAMMER ? " mod " : "%", true, false));
 
-        findViewById(R.id.btn_sqrt).setOnClickListener(v -> writeText("sqrt(", true, true));
+
         findViewById(R.id.btn_fac).setOnClickListener(v -> writeText("!", true, false));
         findViewById(R.id.btn_pi).setOnClickListener(v -> writeText("π", false, false));
         findViewById(R.id.btn_e).setOnClickListener(v -> writeText("е", false, false));
@@ -256,8 +269,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_right_p).setOnClickListener(v -> writeText(")", false, false));
         findViewById(R.id.btn_left_p_2).setOnClickListener(v -> writeText("(", true, true));
         findViewById(R.id.btn_right_p_2).setOnClickListener(v -> writeText(")", false, false));
-        findViewById(R.id.btn_2nd).setOnClickListener(v -> switch2rnd());
 
+        btn_pad_sqrt.setOnClickListener(v -> writeText(is2rnd ? "∛" : "√", true, true));
+        btn_2nd.setOnClickListener(v -> switch2rnd());
         btn_pad_ac.setOnClickListener(v -> clearTextOrLog());
         btn_deg_rad.setOnClickListener(v -> switchDegRad());
 
@@ -425,11 +439,15 @@ public class MainActivity extends AppCompatActivity {
             btn_cos.setForeground(resources.getDrawable(R.drawable.arccos, null));
             btn_tan.setForeground(resources.getDrawable(R.drawable.arctan, null));
             btn_pad_dot.setForeground(resources.getDrawable(R.drawable.comma, null));
+            btn_pad_sqrt.setForeground(resources.getDrawable(R.drawable.btn_cbrt, null));
+            btn_2nd.setForeground(resources.getDrawable(R.drawable.btn_2nd_active, null));
         }else{
             btn_sin.setForeground(resources.getDrawable(R.drawable.sin, null));
             btn_cos.setForeground(resources.getDrawable(R.drawable.cos, null));
             btn_tan.setForeground(resources.getDrawable(R.drawable.tan, null));
             btn_pad_dot.setForeground(resources.getDrawable(R.drawable.btn_pad_dot, null));
+            btn_pad_sqrt.setForeground(resources.getDrawable(R.drawable.btn_sqrt, null));
+            btn_2nd.setForeground(resources.getDrawable(R.drawable.btn_2nd, null));
         }
     }
     private void updateDegRad() {
@@ -442,11 +460,25 @@ public class MainActivity extends AppCompatActivity {
     private void updateBinaryConversionTexts() {
         String text = textBuffer.toString();
         if(autoCalc.testIsNumber(text)) {
-            BigDecimal n = autoCalc.getTools().strToNumber(text);
-            text_bin.setText(Long.toBinaryString(n.longValue()));
-            text_oct.setText(Long.toOctalString(n.longValue()));
-            text_hex.setText(Long.toHexString(n.longValue()));
-            text_dec.setText(String.valueOf(n.longValue()));
+            try {
+                BigDecimal n = autoCalc.getTools().strToNumber(text);
+                if (autoCalc.getTools().checkNumberRange(n, "long")) {
+                    text_bin.setText(Long.toBinaryString(n.longValue()));
+                    text_oct.setText(Long.toOctalString(n.longValue()));
+                    text_hex.setText(Long.toHexString(n.longValue()));
+                    text_dec.setText(String.valueOf(n.longValue()));
+                } else {
+                    text_bin.setText(text_auto_bc_error);
+                    text_oct.setText(text_auto_bc_error);
+                    text_hex.setText(text_auto_bc_error);
+                    text_dec.setText(text_auto_bc_error);
+                }
+            }catch (Exception e) {
+                text_bin.setText(text_auto_bc_error);
+                text_oct.setText(text_auto_bc_error);
+                text_hex.setText(text_auto_bc_error);
+                text_dec.setText(text_auto_bc_error);
+            }
         }else {
             text_bin.setText("");
             text_oct.setText("");
@@ -534,14 +566,14 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, resources.getText(R.string.text_history_cleared), Toast.LENGTH_SHORT).show();
     }
     private void addCalcLog(String formula) {
-
         if(calcHistory.size() > calcHistoryMaxCount) {
             calcHistory.remove(0);
 
             //Delete in db
             calcHistorySqLiteDatabaseWrite.delete(CalcHistoryDbSchema.CalcHistoryDTable.NAME,"formula = ?",new String []{ formula });
         }
-        if(!calcHistory.contains(formula)) {
+        int index = calcHistory.indexOf(formula);
+        if(index != calcHistory.size() - 1) {
             calcHistory.add(formula);
 
             //Add to db
@@ -560,8 +592,6 @@ public class MainActivity extends AppCompatActivity {
 
             layout_history.addView(textView);
         }
-
-
     }
 
     private String preSolveParentheses(boolean isPre) {
@@ -579,13 +609,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void preCalc() {
         String formula = preSolveParentheses(true);
-        if(formula.equals("") || formula.equals("0")) {
-            text_main_pre_result.setVisibility(View.GONE);
-        } else {
-            text_main_pre_result.setVisibility(View.VISIBLE);
+        if(!formula.equals("") && !formula.equals("0")) {
             if (!(autoCalc.isOperator(formula.charAt(formula.length() - 1), AutoCalc.OP_TYPE_BOTH)
                 || autoCalc.isOperator(formula.charAt(formula.length() - 1), AutoCalc.OP_TYPE_START))
                     && formula.charAt(formula.length() - 1) != '(') {
+                text_main_pre_result.setVisibility(View.VISIBLE);
                 String result = autoCalc.calc(formula);
                 StringBuilder sb = new StringBuilder("=");
 
@@ -598,8 +626,8 @@ public class MainActivity extends AppCompatActivity {
 
                 text_main_pre_result.setText(sb.toString());
                 autoCalc.resetLastSuccess();
-            }
-        }
+            }else text_main_pre_result.setText("");
+        }else text_main_pre_result.setVisibility(View.GONE);
     }
     private void doCalc() {
         String result;

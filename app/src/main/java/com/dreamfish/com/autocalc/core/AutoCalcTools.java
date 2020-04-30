@@ -1,7 +1,6 @@
 package com.dreamfish.com.autocalc.core;
 
 import java.math.BigDecimal;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 import static com.dreamfish.com.autocalc.core.AutoCalc.*;
@@ -14,47 +13,6 @@ public class AutoCalcTools {
   }
 
   private AutoCalc autoCalc = null;
-
-
-  /**
-   * 角度转弧度
-   *
-   * @param d 角度
-   */
-  public BigDecimal d2g(BigDecimal d) {
-    return d.multiply(BigDecimal.valueOf(Math.PI)).divide(BigDecimal.valueOf(180d), autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP);
-  }
-  /**
-   * 弧度转角度
-   *
-   * @param g 弧度
-   */
-  public BigDecimal g2d(BigDecimal g) {
-    return g.multiply(BigDecimal.valueOf(180d)).divide(BigDecimal.valueOf(Math.PI), autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP);
-  }
-  /**
-   * 计算对数(BigDecimal精确)
-   */
-  public BigDecimal log(BigDecimal b, BigDecimal a) {
-    return BigDecimal.valueOf(Math.log(b.doubleValue()) / Math.log(a.doubleValue()));
-  }
-  /**
-   * 生成 min 到 max 之间的随机数
-   */
-  public Long rand(Long min, Long max) {
-    return min + ((new Random().nextLong() * (max - min)));
-  }
-  /**
-   * 计算阶乘
-   * @param d d
-   */
-  public long fact(long d) {
-    //
-    long sum = 1;
-    for (int i = 1; i <= d; i++)
-      sum = sum * i;
-    return sum;
-  }
 
   /**
    * 数字转字符串
@@ -115,14 +73,15 @@ public class AutoCalcTools {
 
     if (str.endsWith("b")) result = Long.valueOf(str.substring(0, str.length() - 1), 2);
     else if (str.startsWith("0b")) result = Long.valueOf(str.substring(2), 2);
-    else if (autoCalc.getBcMode() == BC_MODE_BIN) result = Long.valueOf(str, 2);
-    else if (str.endsWith("o")) result = Long.valueOf(str.substring(0, str.length() - 1), 8);
-    else if (str.startsWith("0o")) result = Long.valueOf(str.substring(2), 8);
-    else if (autoCalc.getBcMode() == BC_MODE_OCT) result = Long.valueOf(str, 8);
-    else if (str.endsWith("h")) result = Long.valueOf(str.substring(0, str.length() - 1), 16);
     else if (str.startsWith("0x")) result = Long.valueOf(str.substring(2), 16);
+    else if (str.startsWith("0o")) result = Long.valueOf(str.substring(2), 8);
+    else if (str.endsWith("o")) result = Long.valueOf(str.substring(0, str.length() - 1), 8);
+    else if (str.endsWith("h")) result = Long.valueOf(str.substring(0, str.length() - 1), 16);
+    else if (autoCalc.getBcMode() == BC_MODE_BIN) result = Long.valueOf(str, 2);
+    else if (autoCalc.getBcMode() == BC_MODE_OCT) result = Long.valueOf(str, 8);
     else if (autoCalc.getBcMode() == BC_MODE_HEX) result = Long.valueOf(str, 16);
     else result = Double.valueOf(str);
+
     return BigDecimal.valueOf(result);
   }
   /**
@@ -195,6 +154,31 @@ public class AutoCalcTools {
     return "d";
   }
 
-
+  /**
+   * 检查数值是否溢出
+   * @param n 数值
+   * @param type 类型（int,long.double）
+   * @return 数值是否溢出
+   */
+  public boolean checkNumberRange(BigDecimal n, String type) {
+    switch (type) {
+      case "int":
+        return  n.compareTo(BigDecimal.valueOf(Integer.MIN_VALUE)) > 0 &&  n.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE)) < 0;
+      case "long":
+        return  n.compareTo(BigDecimal.valueOf(Long.MIN_VALUE)) > 0 &&  n.compareTo(BigDecimal.valueOf(Long.MAX_VALUE)) < 0;
+      case "double":
+        return  n.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) > 0 &&  n.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) < 0;
+    }
+    return true;
+  }
+  /**
+   * 检查数值是否溢出并抛出异常
+   * @param n 数值
+   * @param type 类型（int,long.double）
+   */
+  public void checkNumberRangeAndThrow(BigDecimal n, String type) throws AutoCalcInfiniteException {
+    if(!checkNumberRange(n, type))
+      throw new AutoCalcInfiniteException();
+  }
 }
 

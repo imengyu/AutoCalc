@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCalc Help</title>
+  <style>
+    html {
+      line-height: 1.42857;
+      color: #404040;
+      background-color: #fff;
+      font-family: -apple-system,BlinkMacSystemFont,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-feature-settings: "tnum";
+      font-variant: tabular-nums;
+    }
+    body {
+      padding: 15px;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+    }
+    h3 {
+      margin: 20px 0 15px 0;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>AutoCalc 简介</h1>
+  <p>
+    这是一款超级简单的 Android 计算器，是我的学习作品。
+    <br/>和普通的计算器没有什么两样，唯一不同就是可以解析你输入的算式直接计算出结果，好像也没什么不同吧？
+    <br/>好吧这 app 可能很不好，还会有 BUG ，不要拿他来做精密计算呦，可能会出问题。
+  </p>
+  <p>
+    这是开源的，欢迎访问 <a href="https://github.com/imengyu/AutoCalc" target="_blank">github.com/imengyu/AutoCalc</a> 下载源码。
+  </p>
+
+  <h3>帮助</h3>
+  <img src="./img/help1.png" />
+  <p>与普通计算器相差不大，这里不做过多说明了，上图显示了功能按钮的位置。</p>
+
+  <h3>计算精度</h3>
+  <p>本计算器使用 Double 进行计算，对于数学计算，可能会精度丢失。精度大致为小数点 10~15 位。</p>
+  <p>本计算器四则运算使用 BigDecimal 进行计算，您可以在设置中指定精度。</p>
+  <p>
+    计算的值范围，超过则会显示无限大（∞）：
+    <ul>
+      <li>四则运算（+-*/^）：
+        <br/>暂无限制（BigDecimal）但过大会导致 TextView 显示不下。
+      </li>
+      <li>数学运算（sin、log等等）：
+        <br/>4.9e-324 至 1.7976931348623157e+308（Double）
+      </li>
+      <li>逻辑运算（and、not、or、hex等等）：
+        <br/>-2e63 至 2e63 - 1 （Long）
+      </li>
+    </ul>
+  </p>
+
+  <h3>手动输入算式</h3>
+  <p>
+    您可以点击 “手动输入算式” 按钮输入自定义算式进行计算，但请注意，此计算对算式非常敏感，您在输入算式的时候格式必须正确，千万不要忘记任何一个括号。
+    <br/>
+    您可以输入算式例如：
+    <br/>1+4*(6-2)+8/3
+    <br/>sin(2*pi)+cos(1)
+    <br/>hex(0x8F+0x0A)
+  </p>
+  <img src="./img/help4.jpg" />
+
+  <h3>数学函数</h3>
+  <p>
+    本计算器支持一些数学和逻辑函数，您可以点击 “菜单”>“所有函数” 查看函数定义，点击一个函数可以输入到计算器上。
+  </p>
+  <img src="./img/help2.jpg" />
+
+  <h3>逻辑模式（程序员模式）</h3>
+  <p>
+    点击 “切换模式”>“程序员” 可以切换到程序员模式，支持一些基本的逻辑运算。
+  </p>
+  <img src="./img/help3.jpg" />
+
+  <h3>其他</h3>
+  <p>
+    好吧，没有其他功能了，看制作者有没有闲时，如果有的话可能会再加一些有意思的东西。
+  </p>
+  <p>
+    您可以点击 “菜单”>“关于” 查看版权信息。
+  </p>
+
+</body>
+</html>

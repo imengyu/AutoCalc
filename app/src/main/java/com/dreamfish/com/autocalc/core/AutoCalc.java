@@ -36,12 +36,17 @@ public class AutoCalc {
    * Tools
    */
   private AutoCalcTools tools;
+  /**
+   * Math
+   */
+  private AutoCalcMath math;
 
   /**
    * 创建实例
    */
   public AutoCalc() {
     tools = new AutoCalcTools(this);
+    math = new AutoCalcMath(this);
 
     initAllFunctionSolver();
     initAllOperatorSolver();
@@ -92,7 +97,9 @@ public class AutoCalc {
     }
   }
 
-
+  public AutoCalcMath getMath() {
+    return math;
+  }
   public AutoCalcTools getTools() {
     return tools;
   }
@@ -291,14 +298,16 @@ public class AutoCalc {
     int paramCount;
     boolean castDegree;
     boolean containsBinaryConversion;
+    String numberCheckRangeType = "";
 
     AutoCalcFunctionSolver(AutoCalcFunctionActuator actuator, String functionName, int paramCount,
-                           boolean castDegree, boolean containsBinaryConversion) {
+                           boolean castDegree, boolean containsBinaryConversion, String numberCheckRangeType) {
       this.actuator = actuator;
       this.paramCount = paramCount;
       this.functionName = functionName;
       this.castDegree = castDegree;
       this.containsBinaryConversion = containsBinaryConversion;
+      this.numberCheckRangeType = numberCheckRangeType;
     }
   }
 
@@ -637,14 +646,16 @@ public class AutoCalc {
    * @param containsBinaryConversion 是否
    */
   public void addCalcFunctionActuatorSolver(String functionName, int paramCount, boolean castDegree,
-                                            boolean containsBinaryConversion, AutoCalcFunctionActuator functionActuator) {
+                                            boolean containsBinaryConversion,
+                                            AutoCalcFunctionActuator functionActuator, String numberCheckRangeType) {
     if (!isCalcFunctionActuatorExists(functionName)) {
-      functionSolvers.add(new AutoCalcFunctionSolver(functionActuator, functionName, paramCount, castDegree, containsBinaryConversion));
+      functionSolvers.add(new AutoCalcFunctionSolver(functionActuator, functionName, paramCount,
+              castDegree, containsBinaryConversion, numberCheckRangeType));
     }
   }
 
   /**
-   * functionName
+   * 函数解析器是否注册
    *
    * @param functionName 函数名称
    * @return 是否注册
@@ -862,7 +873,7 @@ public class AutoCalc {
         if (solver.castDegree) {
           try {
             // 根据设置转换文字（角度/弧度）为弧度
-            radians = useDegree ? tools.d2g(BigDecimal.valueOf(Double.valueOf(formula))) : BigDecimal.valueOf(Double.valueOf(formula));
+            radians = useDegree ? math.d2g(BigDecimal.valueOf(Double.valueOf(formula))) : BigDecimal.valueOf(Double.valueOf(formula));
           } catch (Exception e) {
             throw new AutoCalcException("未知符号：" + formula);
           }
@@ -1036,66 +1047,94 @@ public class AutoCalc {
     //这里定义所有函数运算
 
     addCalcFunctionActuatorSolver("sin", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sin(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sin(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("cos", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cos(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cos(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("tan", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.tan(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.tan(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("sinh", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sinh(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sinh(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("cosh", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cosh(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cosh(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("tanh", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.tanh(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.tanh(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("arcsin", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.asin(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.asin(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("arccos", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.acos(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.acos(radians.doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("arctan", 1, true, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.atan(radians.doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.atan(radians.doubleValue())),
+            "double");
+
 
     addCalcFunctionActuatorSolver("lg", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log10(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log10(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("ln", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("exp", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.exp(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.exp(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("expm1", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.expm1(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.expm1(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("log1p", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log1p(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.log1p(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("sqrt", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sqrt(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.sqrt(tools.strToNumber(formula).doubleValue())),
+            "double");
     addCalcFunctionActuatorSolver("cbrt", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cbrt(tools.strToNumber(formula).doubleValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.cbrt(tools.strToNumber(formula).doubleValue())),
+            "double");
 
     addCalcFunctionActuatorSolver("pow", 2, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.pow(Double.valueOf(params[0]), Double.valueOf(params[1]))));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.pow(Double.valueOf(params[0]), Double.valueOf(params[1]))),
+            "double");
     addCalcFunctionActuatorSolver("hypot", 2, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.hypot(Double.valueOf(params[0]), Double.valueOf(params[1]))));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.hypot(Double.valueOf(params[0]), Double.valueOf(params[1]))),
+            "double");
 
     addCalcFunctionActuatorSolver("fact", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.fact(tools.strToNumber(formula).longValue())));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(math.fact(tools.strToNumber(formula))),
+            "");
     addCalcFunctionActuatorSolver("cell", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_UP)));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_UP)),
+            "");
     addCalcFunctionActuatorSolver("floor", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_DOWN)));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_DOWN)),
+            "");
     addCalcFunctionActuatorSolver("fix", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_HALF_UP)));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.strToNumber(formula).setScale(0, BigDecimal.ROUND_HALF_UP)),
+            "");
 
     addCalcFunctionActuatorSolver("g2d", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.g2d(BigDecimal.valueOf(Double.valueOf(formula)))));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(math.g2d(BigDecimal.valueOf(Double.valueOf(formula)))),
+            "double");
     addCalcFunctionActuatorSolver("d2g", 1, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.d2g(BigDecimal.valueOf(Double.valueOf(formula)))));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(math.d2g(BigDecimal.valueOf(Double.valueOf(formula)))),
+            "double");
 
     addCalcFunctionActuatorSolver("hex", 1, false, true,
-            (formula, formulaBuffer, functionName, radians, params) -> Long.toHexString(tools.strToNumber(formula).longValue()) + "h");
+            (formula, formulaBuffer, functionName, radians, params) -> Long.toHexString(tools.strToNumber(formula).longValue()) + "h",
+            "long");
     addCalcFunctionActuatorSolver("dec", 1, false, true,
-            (formula, formulaBuffer, functionName, radians, params) -> Long.toString(tools.strToNumber(formula).longValue()));
+            (formula, formulaBuffer, functionName, radians, params) -> Long.toString(tools.strToNumber(formula).longValue()), "");
     addCalcFunctionActuatorSolver("bin", 1, false, true,
-            (formula, formulaBuffer, functionName, radians, params) -> Long.toBinaryString(tools.strToNumber(formula).longValue()) + "b");
+            (formula, formulaBuffer, functionName, radians, params) -> Long.toBinaryString(tools.strToNumber(formula).longValue()) + "b",
+            "long");
     addCalcFunctionActuatorSolver("oct", 1, false, true,
-            (formula, formulaBuffer, functionName, radians, params) -> Long.toOctalString(tools.strToNumber(formula).longValue()) + "o");
+            (formula, formulaBuffer, functionName, radians, params) -> Long.toOctalString(tools.strToNumber(formula).longValue()) + "o",
+            "long");
 
     addCalcFunctionActuatorSolver("negate", 1, false, false,
             (formula, formulaBuffer, functionName, radians, params) -> {
@@ -1106,27 +1145,45 @@ public class AutoCalc {
                 radians = radians.negate();
                 return tools.numberToStr(radians);
               }
-            });
+            }, "");
+    addCalcFunctionActuatorSolver("abs", 1, false, false,
+            (formula, formulaBuffer, functionName, radians, params) -> {
+              radians = tools.strToNumber(formula);
+              int i = radians.compareTo(BigDecimal.ZERO);
+              if (i >= 0) return tools.numberToStr(radians);
+              else {
+                radians = radians.negate();
+                return tools.numberToStr(radians);
+              }
+            },"");
 
     addCalcFunctionActuatorSolver("radix", 2, false, true,
-            (formula, formulaBuffer, functionName, radians, params) -> Long.toString(tools.strToNumber(params[0]).longValue(), tools.strToNumber(params[1]).intValue()));
+            (formula, formulaBuffer, functionName, radians, params) -> {
+              BigDecimal radix = tools.strToNumber(params[1]);
+              if(radix.compareTo(BigDecimal.ZERO) <= 0 || radix.compareTo(BigDecimal.valueOf(32)) > 0)
+                throw new AutoCalcException("进制超出范围");
+              return Long.toString(tools.strToNumber(params[0]).longValue(), radix.intValue());
+            },
+            "long");
 
     addCalcFunctionActuatorSolver("log", 2, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(tools.log(tools.strToNumber(params[0]), tools.strToNumber(params[1]))));
+            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(math.log(tools.strToNumber(params[0]), tools.strToNumber(params[1]))),
+            "double");
 
     addCalcFunctionActuatorSolver("rand", 0, false, false,
             (formula, formulaBuffer, functionName, radians, params) -> {
               if (random == null) random = new Random();
               return String.valueOf(random.nextDouble());
-            });
+            }, "");
     addCalcFunctionActuatorSolver("rnd", 2, false, false,
             (formula, formulaBuffer, functionName, radians, params) -> {
               if (random == null) random = new Random();
-              return String.valueOf(tools.rand(Long.valueOf(params[0]), Long.valueOf(params[1])));
-            });
+              return String.valueOf(math.rand(Long.valueOf(params[0]), Long.valueOf(params[1])));
+            },"long");
 
     addCalcFunctionActuatorSolver("ver", 0, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> "1.13");
+            (formula, formulaBuffer, functionName, radians, params) -> "1.13",
+            "");
 
   }
 
@@ -1249,7 +1306,7 @@ public class AutoCalc {
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       switch (operator) {
         case "!":
-          return tools.numberToStr(tools.fact(nl.longValue()));
+          return tools.numberToStr(math.fact(nl));
       }
       return super.onCalcOperator(sl, sr, nl, nr, operator);
     }
@@ -1264,6 +1321,7 @@ public class AutoCalc {
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       switch (operator) {
         case "^":
+          tools.checkNumberRangeAndThrow(nr, "int");
           return tools.numberToStr(nl.pow(nr.intValue()));
       }
       return super.onCalcOperator(sl, sr, nl, nr, operator);
@@ -1297,6 +1355,7 @@ public class AutoCalc {
 
     @Override
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
+      tools.checkNumberRangeAndThrow(nr, "double");
       switch (operator) {
         case "√":
           return tools.numberToStr(Math.sqrt(nr.doubleValue()));
@@ -1315,7 +1374,6 @@ public class AutoCalc {
     @Override
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       switch (operator) {
-        case "^":
         case "MOD":
         case "mod":
           if (nr.compareTo(BigDecimal.ZERO) == 0) throw new AutoCalcException("不能除以0");
@@ -1337,7 +1395,11 @@ public class AutoCalc {
     }
 
     @Override
-    public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) {
+    public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcInfiniteException {
+
+      tools.checkNumberRangeAndThrow(nl, "long");
+      tools.checkNumberRangeAndThrow(nr, "long");
+
       long result = 0;
       switch (operator) {
         case "and": result = nl.longValue() & nr.longValue(); break;
@@ -1355,13 +1417,14 @@ public class AutoCalc {
   private class LogicNotOperatorSolver extends AutoCalcOperatorSolver {
 
     LogicNotOperatorSolver() {
-      super("LogicNot", 7, OP_TYPE_START, new String[] { "not" });
+      super("LogicNot", 7, OP_TYPE_START, new String[] { "not", "~" });
     }
 
     @Override
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       switch (operator) {
         case "not":
+          tools.checkNumberRangeAndThrow(nr, "long");
           return tools.numberToStr(~nr.longValue());
       }
       return super.onCalcOperator(sl, sr, nl, nr, operator);
