@@ -53,6 +53,7 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/convert_unit_value"
                 android:textColorHighlight="@color/colorPrimary"
+                android:textIsSelectable="true"
                 android:textSize="24sp"
                 app:minTextSize="12sp"
                 app:sizeToFit="true" />
@@ -114,6 +115,7 @@
                 android:textAlignment="textEnd"
                 android:textColor="@color/convert_unit_value"
                 android:textColorHighlight="@color/colorPrimary"
+                android:textIsSelectable="true"
                 android:textSize="24sp"
                 app:minTextSize="12sp"
                 app:sizeToFit="true" />
