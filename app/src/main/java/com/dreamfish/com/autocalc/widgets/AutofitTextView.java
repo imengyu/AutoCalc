@@ -187,8 +187,14 @@ public class AutofitTextView extends AppCompatTextView implements AutofitHelper.
         mHelper.setPrecision(precision);
     }
 
+
+
+
+
     @Override
     public void onTextSizeChange(float textSize, float oldTextSize) {
-        // do nothing
+
     }
+
+
 }

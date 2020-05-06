@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">AutoCalc</string>
     <string name="app_description">一款超级简单的 Android 计算器</string>
-    <string name="app_version">V.1.0.1</string>
+    <string name="app_version">V.1.3</string>
     <string name="app_copyright">© 2020 By 梦欤</string>
-    <string name="app_description_long">这是一款超级简单的 Android 计算器，是我的学习作品</string>
+    <string name="app_description_long">这是一款超级简单的 Android 计算器，是梦欤的学习作品</string>
 
     <string name="action_about">关于</string>
     <string name="action_exit">退出程序</string>
@@ -31,16 +31,56 @@
     <string name="text_history_cleared">所有历史记录已清空</string>
     <string name="text_error">错误</string>
     <string name="text_auto_bc_error">数值超出运算范围</string>
+    <string name="text_out_of_range">超出范围</string>
     <string name="text_use_deg">当前使用角度制</string>
     <string name="text_use_rad">当前使用弧度制</string>
+    <string name="text_please_choose">请选择</string>
 
     <string name="text_none">暂无数据</string>
     <string name="text_none_calc_step">暂时还没有计算步骤哦，您可以输入并计算算式后再查看计算步骤</string>
     <string name="text_i_new">我知道了</string>
     <string name="text_mode_normal">标准</string>
-    <string name="text_mode_expand">程序员</string>
-    <string name="text_mode_programmer">科学</string>
+    <string name="text_mode_expand">科学</string>
+    <string name="text_mode_programmer">程序员</string>
+    <string name="text_mode_date_calc">日期相差计算</string>
+    <string name="text_mode_conversion">换算</string>
 
+
+    <string name="text_same_day">同一天</string>
+    <string name="text_same_time">相同时间</string>
+    <string name="text_all">总共</string>
+    <string name="text_add">添加</string>
+    <string name="text_sub">减去</string>
+    <string name="text_week">周</string>
+    <string name="text_hour">时</string>
+    <string name="text_minute">分</string>
+    <string name="text_second">秒</string>
+    <string name="text_day">天</string>
+    <string name="text_month">月</string>
+    <string name="text_year">年</string>
+    <string name="text_date">日期</string>
+    <string name="text_time">时间</string>
+    <string name="text_start_date">开始日期</string>
+    <string name="text_end_date">结束日期</string>
+    <string name="text_result_date">结果日期</string>
+    <string name="text_days_between">相隔天数</string>
+    <string name="text_time_between">相隔时间</string>
+    <string name="text_please_choose_date">请选择日期</string>
+    <string name="text_date_diff">日期间隔计算</string>
+    <string name="text_addsub_date">添加或减去天数</string>
+
+    <string name="text_choose_unit">选择单位</string>
+    <string name="text_dot">.</string>
+    <string name="text_title">标题</string>
+    <string name="text_more">更多</string>
+    <string name="text_clear">清空</string>
+    <string name="text_show_full">显示完整</string>
+
+    <string name="text_calculator">计算器</string>
+    <string name="text_converter">换算器</string>
+    <string name="text_calculator_mode">{0}计算器</string>
+
+    <string name="text_text_too_long">字符过长不能显示，请点击菜单>显示完整</string>
     <string name="text_click_to_input_function">您可以点击某个函数进行输入</string>
     <string name="text_custom_input">您可以手动输入算式进行计算，例如 1 + 2 * 16 + cos(pi)</string>
     <string name="text_help_1">此计算对算式非常敏感，您在输入算式的时候格式必须正确，千万不要忘记任何一个括号</string>
@@ -48,6 +88,9 @@
     <string name="title_activity_about">关于 AutoCalc</string>
     <string name="title_activity_help">AutoCalc 帮助</string>
     <string name="title_activity_settings">设置</string>
+    <string name="title_activity_date_range">日期相差计算</string>
+    <string name="title_to_converter">换算</string>
+    <string name="title_full_text">完整字符</string>
 
     <string name="title_show_functions">所有函数</string>
     <string name="title_custom_input">手动输入算式</string>
@@ -65,6 +108,9 @@
     <string name="settings_key_free_input">开启随意输入模式</string>
     <string name="settings_key_free_input_summary">随意输入模式允许您随意输入算式，您可以运算更复杂的算式，但需要您的算式输入无误</string>
     <string name="settings_key_computation_accuracy">计算精度</string>
+    <string name="settings_key_computation_accuracy_summary">仅用于四则运算</string>
+    <string name="settings_key_auto_scientific_notation">过大的数值自动使用科学计数法</string>
+    <string name="settings_key_scientific_notation_max">自动科学计数法开始大小</string>
     <string name="settings_key_record_step">记录计算步骤</string>
     <string name="settings_key_record_step_summary">开启后可以显示当前算式的计算步骤，您可以在顶部按钮查看</string>
 

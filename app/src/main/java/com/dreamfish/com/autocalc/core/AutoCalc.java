@@ -2,6 +2,8 @@ package com.dreamfish.com.autocalc.core;
 
 import android.os.Build;
 
+import com.dreamfish.com.autocalc.utils.ConvertUpMoney;
+
 import java.util.*;
 import java.math.*;
 
@@ -70,6 +72,7 @@ public class AutoCalc {
       equation = equation.substring(0, equation.length() - 1);// 取=后面的
     try {
       // 计算
+      forceNoNumberCheck = false;
       lastSuccess = true;
       lastCalcSteps.clear();
       lastContainsBinaryConversion = false;
@@ -79,8 +82,14 @@ public class AutoCalc {
       calcCore(formulaBuffer, true);
 
       equation = formulaBuffer.toString();
-      return equation;
 
+      if(!forceNoNumberCheck && tools.isNumber(equation) && autoScientificNotation) {
+        BigDecimal n = tools.strToNumber(equation);
+        if(n.compareTo(BigDecimal.valueOf(scientificNotationMax)) >= 0)
+          return tools.numberToScientificNotationStr(n);
+      }
+
+      return equation;
     } catch (AutoCalcException e) {
       lastSuccess = false;
       lastException = e;
@@ -97,12 +106,37 @@ public class AutoCalc {
     }
   }
 
+  /**
+   * 计算入口
+   * @param equation 算式
+   * @return 结果
+   */
+  public BigDecimal calcBigDecimal(String equation) throws Exception {
+    forceNoNumberCheck = false;
+    lastSuccess = true;
+    lastCalcSteps.clear();
+    lastContainsBinaryConversion = false;
+    lastFormula = equation;
+
+    StringBuilder formulaBuffer = new StringBuilder(equation);
+    calcCore(formulaBuffer, true);
+
+    equation = formulaBuffer.toString();
+
+    if(tools.isNumber(equation))
+      return tools.strToNumber(equation);
+
+    throw new AutoCalcException("不是数字");
+  }
+
+
   public AutoCalcMath getMath() {
     return math;
   }
   public AutoCalcTools getTools() {
     return tools;
   }
+
   /**
    * 检查算式中是否有运算符算式
    *
@@ -247,10 +281,42 @@ public class AutoCalc {
     return lastFormula;
   }
 
+  /**
+   * 获取启用自动科学计数法开始的数值
+   */
+  public long getScientificNotationMax() { return scientificNotationMax; }
+
+  /**
+   * 设置启用自动科学计数法开始的数值
+   * @param scientificNotationMax 启用自动科学计数法开始的数值
+   */
+  public void setScientificNotationMax(long scientificNotationMax) {
+    this.scientificNotationMax = scientificNotationMax;
+  }
+
+  /**
+   * 获取是否启用自动科学计数法显示
+   * @return 是否启用自动科学计数法显示
+   */
+  public boolean isAutoScientificNotation() {
+    return autoScientificNotation;
+  }
+
+  /**
+   * 设置是否启用自动科学计数法显示
+   * @param autoScientificNotation 是否启用自动科学计数法显示
+   */
+  public void setAutoScientificNotation(boolean autoScientificNotation) {
+    this.autoScientificNotation = autoScientificNotation;
+  }
+
   //============================
   // 设置和配置
   //============================
 
+  private boolean forceNoNumberCheck = false;
+  private long scientificNotationMax = 100000;
+  private boolean autoScientificNotation = true;
   private int numberScale = 10;
   private int bcMode = BC_MODE_DEC;
   private boolean lastSuccess = true;
@@ -286,7 +352,7 @@ public class AutoCalc {
      * @throws AutoCalcException 计算错误时抛出错误
      * @throws AutoCalcInfiniteException 计算结果为无限大时抛出错误
      */
-    String onCalcFunction(String formula, StringBuilder formulaBuffer, String functionName, BigDecimal radians, String[] params) throws AutoCalcException, AutoCalcInfiniteException;
+    String onCalcFunction(String formula, StringBuilder formulaBuffer, String functionName, BigDecimal radians, String[] params) throws Exception;
   }
 
   /**
@@ -409,9 +475,10 @@ public class AutoCalc {
 
     //内核处理函数
 
-    public void onCalcSolve(StringBuilder formulaBuffer) throws AutoCalcException, AutoCalcInfiniteException {
+    void onCalcSolve(StringBuilder formulaBuffer) throws AutoCalcException, AutoCalcInfiniteException {
 
       int formulaSize = formulaBuffer.length();
+      int formulaSolvedInxdex = 0;
 
       for (int i = 0; i < formulaSize; i++) {
 
@@ -420,17 +487,17 @@ public class AutoCalc {
           //单个字符op
           int symbolSize = symbol.length();
           if (symbolSize == 1) {
-            if (formulaBuffer.charAt(i) == symbol.charAt(0)) {
+            if (i < formulaSize && formulaBuffer.charAt(i) == symbol.charAt(0)) {
               if(calcSolvePreMatch(formulaBuffer, symbol, i))
                 continue;
-              if(calcSolveMatchOp(formulaBuffer, i, symbol)) {
-                i = 0;
-                formulaSize = formulaBuffer.length();
-              }
+              formulaSolvedInxdex = calcSolveMatchOp(formulaBuffer, i, symbol);
+              formulaSize = formulaBuffer.length();
+              if(formulaSolvedInxdex >= 0)
+                i = formulaSolvedInxdex - 1;
             }
           } else if (symbolSize > 1) {
             //多个字符组成的op
-            if (formulaBuffer.charAt(i) == symbol.charAt(0)) {
+            if (i < formulaSize && formulaBuffer.charAt(i) == symbol.charAt(0)) {
               boolean match = true;
               for (int j = 0; j < symbolSize; j++) {
                 if (i + j >= formulaBuffer.length() || formulaBuffer.charAt(i + j) != symbol.charAt(j)) match = false;
@@ -438,10 +505,10 @@ public class AutoCalc {
               if (match) {
                 if (calcSolvePreMatch(formulaBuffer, symbol, i))
                   continue;
-                if (calcSolveMatchOp(formulaBuffer, i, symbol)) {
-                  i = 0;
-                  formulaSize = formulaBuffer.length();
-                }
+                formulaSolvedInxdex = calcSolveMatchOp(formulaBuffer, i, symbol);
+                formulaSize = formulaBuffer.length();
+                if(formulaSolvedInxdex >= 0)
+                  i = formulaSolvedInxdex - 1;
               }
             }
           }
@@ -450,29 +517,33 @@ public class AutoCalc {
       }
     }
 
-    private boolean calcSolveMatchOp(StringBuilder formulaBuffer, int i, String symbol) throws AutoCalcException, AutoCalcInfiniteException {
+    private int calcSolveMatchOp(StringBuilder formulaBuffer, int i, String symbol) throws AutoCalcException, AutoCalcInfiniteException {
 
       String formulaLeft;
       String formulaRight;
+      int replacedIndex = -1;
 
       if (type == OP_TYPE_END || type == OP_TYPE_BOTH) formulaLeft = cutNumberDirection(formulaBuffer, i, true);
       else formulaLeft = "NULL";
       if (type == OP_TYPE_START || type == OP_TYPE_BOTH) formulaRight = cutNumberDirection(formulaBuffer, i + symbol.length() - 1, false);
       else formulaRight = "NULL";
 
-      if (calcSolveCheckedOperator(formulaBuffer, formulaLeft, formulaRight, symbol)) {
+      replacedIndex = calcSolveCheckedOperator(formulaBuffer, formulaLeft, formulaRight, symbol);
+      if (replacedIndex >= 0) {
         if(recordStep)
           lastCalcSteps.add("(" + formulaLeft + symbol + formulaRight + ")=" + formulaBuffer.toString());
-        return true;
       }
 
-      return false;
+      return replacedIndex;
     }
 
-    private boolean calcSolveCheckedOperator(StringBuilder formulaBuffer, String formulaLeft, String formulaRight, String operator) throws AutoCalcException, AutoCalcInfiniteException {
+    private int calcSolveCheckedOperator(StringBuilder formulaBuffer, String formulaLeft, String formulaRight, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       StringBuilder formulaOld = new StringBuilder();
-      if(!formulaLeft.equals(defaultCalcValue) && !formulaLeft.equals("NULL")) formulaOld.append(formulaLeft); formulaOld.append(operator);
-      if(!formulaRight.equals(defaultCalcValue) && !formulaRight.equals("NULL")) formulaOld.append(formulaRight);
+      if(!formulaLeft.equals("NaN") && !formulaLeft.equals("NULL"))
+        formulaOld.append(formulaLeft);
+      formulaOld.append(operator);
+      if(!formulaRight.equals("NaN") && !formulaRight.equals("NULL"))
+        formulaOld.append(formulaRight);
 
       int oldIndex = formulaBuffer.indexOf(formulaOld.toString());
       if (oldIndex >= 0) {
@@ -483,9 +554,9 @@ public class AutoCalc {
 
         formulaBuffer.replace(oldIndex, oldIndex + formulaOld.length(), result);
 
-        return true;
+        return oldIndex + result.length();
       }
-      return false;
+      return -1;
     }
 
     private boolean calcSolvePreMatch(StringBuilder formulaBuffer, String operatorSymbol, int index) {
@@ -516,7 +587,7 @@ public class AutoCalc {
           if (isNumChar(formulaBuffer.charAt(start))) oneAddSubNumberFind = true;
           if (
                   (!oneAddSubNumberFind && isOperatorWithoutAddSub(formulaBuffer.charAt(start)))
-                          || (oneAddSubNumberFind && isOperator(formulaBuffer.charAt(start)))
+                          || (oneAddSubNumberFind && isOperator(formulaBuffer.charAt(start)) && start != 0)
           ) {
             startIndex = start + 1;
             break;
@@ -748,7 +819,7 @@ public class AutoCalc {
   /**
    * 计算主函数
    */
-  private void calcCore(StringBuilder formulaBuffer, boolean isFirst) throws AutoCalcException, AutoCalcInfiniteException {
+  private void calcCore(StringBuilder formulaBuffer, boolean isFirst) throws Exception {
     if (formulaBuffer.length() == 0) return;
     if (formulaBuffer.indexOf("∞") > -1) {
       formulaBuffer.delete(0, formulaBuffer.length());
@@ -789,7 +860,7 @@ public class AutoCalc {
       }
 
       //无法处理，抛出异常
-      if (!formulaPatched && !tools.isNumber(formulaBuffer) && formulaBuffer.length() != 0)
+      if (!forceNoNumberCheck && !formulaPatched && !tools.isNumber(formulaBuffer) && formulaBuffer.length() != 0)
         throw new AutoCalcException("错误的输入：" + formulaBuffer.toString());//
 
       removeContinuousZero(formulaBuffer);
@@ -852,7 +923,7 @@ public class AutoCalc {
    * @throws AutoCalcException         计算发生错误时抛出此异常
    * @throws AutoCalcInfiniteException 当计算为无限大时抛出此异常
    */
-  private void calcFunction(StringBuilder formulaBuffer, String functionName) throws AutoCalcException, AutoCalcInfiniteException {
+  private void calcFunction(StringBuilder formulaBuffer, String functionName) throws Exception {
 
     String formula = formulaBuffer.toString();
 
@@ -915,7 +986,7 @@ public class AutoCalc {
    * @throws AutoCalcException         计算发生错误时抛出此异常
    * @throws AutoCalcInfiniteException 当计算为无限大时抛出此异常
    */
-  private void calcParenthesis(StringBuilder formulaBuffer) throws AutoCalcException, AutoCalcInfiniteException {
+  private void calcParenthesis(StringBuilder formulaBuffer) throws Exception {
     //
     // 先从外到里
     boolean qfinded = false;
@@ -1098,7 +1169,12 @@ public class AutoCalc {
             "double");
 
     addCalcFunctionActuatorSolver("pow", 2, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.pow(Double.valueOf(params[0]), Double.valueOf(params[1]))),
+            (formula, formulaBuffer, functionName, radians, params) -> {
+              BigDecimal radix = tools.strToNumber(params[1]);
+              if(radix.compareTo(BigDecimal.ZERO) <= 0 || radix.compareTo(BigDecimal.valueOf(32)) > 0)
+                throw new AutoCalcInfiniteException();
+              return tools.numberToStr(tools.strToNumber(params[0]).pow(radix.intValue()));
+            },
             "double");
     addCalcFunctionActuatorSolver("hypot", 2, false, false,
             (formula, formulaBuffer, functionName, radians, params) -> tools.numberToStr(Math.hypot(Double.valueOf(params[0]), Double.valueOf(params[1]))),
@@ -1182,9 +1258,20 @@ public class AutoCalc {
             },"long");
 
     addCalcFunctionActuatorSolver("ver", 0, false, false,
-            (formula, formulaBuffer, functionName, radians, params) -> "1.13",
+            (formula, formulaBuffer, functionName, radians, params) -> "2.0",
             "");
 
+    addCalcFunctionActuatorSolver("capitalNumber", 1, false, false,
+            (formula, formulaBuffer, functionName, radians, params) -> {
+              forceNoNumberCheck = true;
+              return ConvertUpMoney.toChinese(formula);
+            }, "double");
+
+    addCalcFunctionActuatorSolver("test", 0, false, false,
+            (formula, formulaBuffer, functionName, radians, params) -> {
+              throw new Exception("test Exception");
+            },
+            "");
   }
 
   private void initAllConstants() {
@@ -1322,7 +1409,9 @@ public class AutoCalc {
       switch (operator) {
         case "^":
           tools.checkNumberRangeAndThrow(nr, "int");
-          return tools.numberToStr(nl.pow(nr.intValue()));
+          int ap = nr.intValue();
+          if(ap > 10000) throw new AutoCalcInfiniteException();
+          return tools.numberToStr(ap >= 0 ? nl.pow(ap) : BigDecimal.ONE.divide(nl.pow(-ap), numberScale, BigDecimal.ROUND_HALF_UP));
       }
       return super.onCalcOperator(sl, sr, nl, nr, operator);
     }
@@ -1423,6 +1512,7 @@ public class AutoCalc {
     @Override
     public String onCalcOperator(String sl, String sr, BigDecimal nl, BigDecimal nr, String operator) throws AutoCalcException, AutoCalcInfiniteException {
       switch (operator) {
+        case "~":
         case "not":
           tools.checkNumberRangeAndThrow(nr, "long");
           return tools.numberToStr(~nr.longValue());

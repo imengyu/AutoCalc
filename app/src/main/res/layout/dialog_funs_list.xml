@@ -16,6 +16,7 @@
         android:paddingBottom="25dp">
 
         <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_show_functions"
@@ -23,6 +24,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/text_sub_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_click_to_input_function"

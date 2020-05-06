@@ -13,13 +13,16 @@ import androidx.appcompat.app.AlertDialog;
 public class AlertDialogTool {
 
     public static AlertDialog buildCustomBottomPopupDialog(Context context, View v) {
+        return buildCustomStylePopupDialogGravity(context, v, Gravity.BOTTOM, R.style.DialogBottomPopup);
+    }
+    public static AlertDialog buildCustomStylePopupDialogGravity(Context context, View v, int gravity, int anim) {
         AlertDialog dialog = new AlertDialog.Builder(context, R.style.WhiteRoundDialog)
                 .setView(v)
                 .setCancelable(true)
                 .create();
 
         Window window = dialog.getWindow();
-        window.setGravity(Gravity.BOTTOM);
+        window.setGravity(gravity);
         window.getDecorView().setPadding(0, 0, 0, 0);
 
         WindowManager.LayoutParams lp = window.getAttributes();
@@ -27,7 +30,7 @@ public class AlertDialogTool {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         window.setAttributes(lp);
-        window.setWindowAnimations(R.style.DialogBottomPopup);
+        window.setWindowAnimations(anim);
 
         return dialog;
     }

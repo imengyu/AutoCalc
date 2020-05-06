@@ -11,6 +11,11 @@
     tools:context=".HelpActivity">
 
 
+    <com.dreamfish.com.autocalc.widgets.MyTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <WebView
         android:id="@+id/webview_help"
         android:layout_width="match_parent"

@@ -50,6 +50,31 @@
         <item>30</item>
     </string-array>
 
+
+    <!-- scientific notation Preference -->
+    <string-array name="scientific_notation_max_entries">
+        <item>10^3</item>
+        <item>10^4</item>
+        <item>10^5</item>
+        <item>10^6</item>
+        <item>10^7</item>
+        <item>10^8</item>
+        <item>10^9</item>
+        <item>10^10</item>
+    </string-array>
+
+    <string-array name="scientific_notation_max_values" translatable="false">
+        <item>1000</item>
+        <item>10000</item>
+        <item>100000</item>
+        <item>1000000</item>
+        <item>10000000</item>
+        <item>100000000</item>
+        <item>1000000000</item>
+        <item>10000000000</item>
+    </string-array>
+
+
     <!-- Functions help -->
     <string-array name="functions_help_names" translatable="false">
         <item>sin(x)</item>
@@ -126,6 +151,38 @@
 
         <item>生成 [0, 1) 的随机数</item>
         <item>生成 [a, b) 的随机数</item>
+    </string-array>
+
+    <!-- Converts help -->
+    <string-array name="converts_texts">
+        <item>长度单位转换</item>
+        <item>面积单位转换</item>
+        <item>体积单位转换</item>
+        <item>速度单位转换</item>
+        <item>温度单位转换</item>
+        <item>重量单位转换</item>
+        <item>时间单位转换</item>
+        <item>能量单位转换</item>
+        <item>压力单位转换</item>
+        <item>热量单位转换</item>
+        <item>角度单位转换</item>
+        <item>数据大小单位转换</item>
+        <item>人民币金额中文大写</item>
+    </string-array>
+    <string-array name="converts_icons" translatable="false">
+        <item>@drawable/menu_icon_conversion_length</item>
+        <item>@drawable/menu_icon_conversion_area</item>
+        <item>@drawable/menu_icon_conversion_volume</item>
+        <item>@drawable/menu_icon_conversion_velocity</item>
+        <item>@drawable/menu_icon_conversion_temprature</item>
+        <item>@drawable/menu_icon_conversion_weight</item>
+        <item>@drawable/menu_icon_conversion_time</item>
+        <item>@drawable/menu_icon_conversion_power</item>
+        <item>@drawable/menu_icon_conversion_pressure</item>
+        <item>@drawable/menu_icon_conversion_energy</item>
+        <item>@drawable/menu_icon_conversion_angle</item>
+        <item>@drawable/menu_icon_conversion_radix</item>
+        <item>@drawable/menu_icon_conversion_currency</item>
     </string-array>
 
 </resources>

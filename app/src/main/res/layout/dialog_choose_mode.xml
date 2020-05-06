@@ -27,7 +27,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_pad_number_last_s"
             android:text="@string/text_mode_normal" />
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_pad_number_last_s"
-            android:text="@string/text_mode_programmer" />
+            android:text="@string/text_mode_expand" />
 
         <Button
             android:id="@+id/btn_mode_programmer"
@@ -47,14 +47,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_pad_number_last_s"
-            android:text="@string/text_mode_expand" />
+            android:text="@string/text_mode_programmer" />
+
+        <Button
+            android:id="@+id/btn_mode_date_calc"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_pad_number_last_s"
+            android:text="@string/text_mode_date_calc" />
 
         <Button
             android:id="@+id/btn_cancel"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_pad_number_last_s"
             android:text="@string/action_cancel"
             android:textColor="@android:color/black" />

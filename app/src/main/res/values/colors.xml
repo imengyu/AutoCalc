@@ -2,12 +2,8 @@
 <resources>
     <color name="colorPrimary">#FF7635</color>
     <color name="colorPrimaryDark">#ffed6b2e</color>
-    <color name="colorAccent">#03A9F4</color>
+    <color name="colorAccent">#FF5722</color>
     <color name="colorTransparent">#00000000</color>
-    <color name="actionbar_bg">#ffffffff</color>
-    <color name="actionbar_bg_cal">#ffffffff</color>
-    <color name="actionbar_bg_others">#ffffffff</color>
-    <color name="alert_list_primary">#ff131313</color>
     <color name="btn_pad_bg_p">#ffe0e1e2</color>
     <color name="btn_pad_border">#ffffffff</color>
     <color name="btn_pad_last_s_n">#0a000000</color>
@@ -90,7 +86,7 @@
     <color name="button_text">#ff979ca4</color>
     <color name="cal_vertical_view_top_line_background">#99f0f0f0</color>
     <color name="city_capital">#ff8c93b0</color>
-    <color name="conversion_bg">#fff1f3f2</color>
+    <color name="conversion_bg">#FAF7F7</color>
     <color name="cursor_mask">@color/grid_item_bg</color>
     <color name="float_window_alpha_seekbar_active_color">#ffffffff</color>
     <color name="float_window_background">#ff303135</color>
@@ -101,15 +97,9 @@
     <color name="item_high_light_blue">#ff1488d1</color>
     <color name="item_high_light_blue_secondary">#ff1381c6</color>
     <color name="item_high_light_secondary">#ffef7139</color>
-    <color name="mortgage_tab_high_light_text_n">#ffe55601</color>
-    <color name="mortgage_tab_high_light_text_p">#7f000000</color>
-    <color name="mortgage_tab_text_n">#7f000000</color>
-    <color name="mortgage_tab_text_p">#ffe55601</color>
-    <color name="mortgage_yearly_title_bg">#fff5f5f5</color>
     <color name="relationship_btn_cross_check_pressed">#ffe9ebef</color>
     <color name="show_screen_display_color">#ff46494d</color>
     <color name="show_screen_history_color">#ff969ba3</color>
     <color name="textview_pressed">#ffff5d00</color>
-    <color name="tv_color">#ff535353</color>
     <color name="unit_text_orange">#ffef7139</color>
 </resources>

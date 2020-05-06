@@ -21,21 +21,15 @@
         android:title="@string/action_show_calc_step" />
 
     <item
+        android:id="@+id/action_custom_input"
+        android:title="@string/title_custom_input" />
+
+    <item
+        android:id="@+id/action_show_full"
+        android:title="@string/text_show_full" />
+
+    <item
         android:id="@+id/action_exit"
         android:title="@string/action_exit" />
-
-    <item
-        android:id="@+id/action_choose_mode"
-        android:icon="@drawable/ic_mode"
-        android:orderInCategory="90"
-        android:title="@string/action_choose_mode"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_custom_input"
-        android:icon="@drawable/ic_custom_white"
-        android:orderInCategory="90"
-        android:title="@string/title_custom_input"
-        app:showAsAction="ifRoom" />
 
 </menu>

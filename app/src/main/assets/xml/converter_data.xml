@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+    <group name="length" base="1" def1="0" def2="1">
+        <header>[公制]</header>
+
+        <item name="米" shortName="m"><base>1</base></item>
+        <item name="千米" shortName="km"><base>1000</base></item>
+        <item name="分米" shortName="dm"><base>0.1</base></item>
+        <item name="厘米" shortName="cm"><base>0.01</base></item>
+        <item name="毫米" shortName="mm"><base>0.001</base></item>
+        <item name="微米" shortName="μm"><base>1e-6</base></item>
+        <item name="纳米" shortName="nm"><base>1e-9</base></item>
+        <item name="皮米" shortName="pm"><base>1e-12</base></item>
+        <item name="秒差距" shortName="pc"><base>1000</base></item>
+        <item name="月球距离" shortName="pc"><base>3.84e+10</base></item>
+        <item name="天文单位" shortName="AU"><base>1.4960e+8</base></item>
+        <item name="光年" shortName="ly"><base>9.4607e+15</base></item>
+
+        <header>[英制]</header>
+        <item name="英寸" shortName="in"><base>0.0254</base></item>
+        <item name="英尺" shortName="ft"><base>0.3048</base></item>
+        <item name="码" shortName="yd"><base>0.9144</base></item>
+        <item name="海里" shortName="nmi"><base>1852</base></item>
+        <item name="英里" shortName="mi"><base>1609.344</base></item>
+        <item name="弗隆" shortName="fur"><base>201.168</base></item>
+        <item name="英寻" shortName="ftm"><base>1.8288</base></item>
+
+
+        <header>[市制]</header>
+        <item name="里" shortName="li"><base>500</base></item>
+        <item name="丈" shortName="zhang"><base>3.3333333</base></item>
+        <item name="尺" shortName="chi"><base>0.3333333</base></item>
+        <item name="寸" shortName="cun"><base>0.0333333</base></item>
+        <item name="分" shortName="fen"><base>0.0033333</base></item>
+        <item name="厘" shortName="lii"><base>0.0003333</base></item>
+        <item name="毫" shortName="hao"><base>0.0000333</base></item>
+    </group>
+    <group name="area" base="0" def1="0" def2="1">
+        <item name="平方米" shortName="m²"><base>1</base></item>
+        <item name="平方公里" shortName="km²"><base>1000000</base></item>
+        <item name="公顷" shortName="ha"><base>10000</base></item>
+        <item name="平方分米" shortName="dm²"><base>0.01</base></item>
+        <item name="平方厘米" shortName="cm²"><base>0.0001</base></item>
+        <item name="平方毫米" shortName="mm²"><base>0.000001</base></item>
+        <item name="平方英里" shortName="mile²"><base>2590002.59000259</base></item>
+        <item name="英亩" shortName="ac"><base>4046.944556859571</base></item>
+        <item name="市亩" shortName="mu"><base>666.6666666666666</base></item>
+        <item name="平方竿" shortName="rd²"><base>25.29282771284547</base></item>
+        <item name="平方码" shortName="yd²"><base>0.8361273923695013</base></item>
+        <item name="平方英尺" shortName="ft²"><base>0.1111111111111111</base></item>
+        <item name="平方英寸" shortName="in²"><base>0.0011111111111111111</base></item>
+    </group>
+    <group name="volume" base="0" def1="0" def2="1">
+        <header>[公制]</header>
+        <item name="立方米" shortName="m³"><base>1</base></item>
+        <item name="立方分米(升)" shortName="dm³ (l)"><base>0.001</base></item>
+        <item name="立方厘米(毫升)" shortName="cm³ (ml)"><base>0.000001</base></item>
+        <item name="立方毫米" shortName="mm³"><base>1e-9</base></item>
+        <item name="公石" shortName="hl"><base>0.1</base></item>
+        <item name="十升" shortName="dal"><base>0.01</base></item>
+        <item name="分升" shortName="dl"><base>0.0001</base></item>
+        <item name="厘升" shortName="cl"><base>0.00001</base></item>
+
+        <header>[美英同制体积计量]</header>
+        <item name="亩英尺" shortName="af³"><base>1233.5019119279634</base></item>
+        <item name="立方码" shortName="yd³"><base>0.7645548692741148</base></item>
+        <item name="立方英尺" shortName="ft³"><base>0.028316846609230496</base></item>
+        <item name="立方英寸" shortName="in³"><base>0.00001638706400000867</base></item>
+
+        <header>[美制干量]</header>
+        <item name="桶" shortName=" "><base>0.11562712370892778</base></item>
+        <item name="蒲式耳" shortName="bu"><base>0.03523907011522362</base></item>
+        <item name="配克" shortName="pk"><base>0.008809767544328306</base></item>
+        <item name="夸脱" shortName="qt"><base>0.0011012209426772318</base></item>
+        <item name="品脱" shortName="pt"><base>0.0005506104713689331</base></item>
+
+        <header>[英制液量和干量]</header>
+        <item name="桶" shortName=" "><base>0.16365923992492032</base></item>
+        <item name="蒲式耳" shortName="bu"><base>0.03636872004944982</base></item>
+        <item name="加仑" shortName="bal"><base>0.004546089999981147</base></item>
+        <item name="品脱" shortName="pt"><base>0.0005682612499976434</base></item>
+        <item name="液量盎司" shortName="fl oz"><base>0.000028413062499962898</base></item>
+
+        <header>[公制烹调制式]</header>
+        <item name="汤勺" shortName="Table spoon"><base>0.0000149999999999925</base></item>
+        <item name="调羹" shortName="Tea spoon"><base>0.000005</base></item>
+
+        <header>美制烹调制式</header>
+        <item name="汤勺" shortName="Tbs"><base>0.000014786764781246938</base></item>
+        <item name="调羹" shortName="tsp"><base>0.000004928921593748979</base></item>
+        <item name="杯" shortName="fl oz"><base>0.0002365882365017002</base></item>
+
+        <header>[美制液量]</header>
+        <item name="桶" shortName="42gal"><base>0.15898729418061353</base></item>
+        <item name="加仑" shortName="gal"><base>0.0037854117834002945</base></item>
+        <item name="夸脱" shortName="qt"><base>0.0009463529460291903</base></item>
+        <item name="品脱" shortName="pt"><base>0.00047317647299220563</base></item>
+        <item name="及耳" shortName="gi"><base>0.00011829411824945073</base></item>
+        <item name="液量盎司" shortName="oz"><base>0.000029573529562537606</base></item>
+        <item name="液量打兰" shortName="fl dr"><base>0.0000036966911953131007</base></item>
+        <item name="量滴" shortName="min"><base>4.813399993896484</base></item>
+    </group>
+    <group name="velocity" base="0" def1="0" def2="1">
+        <item name="米/秒" shortName="m/s"><base>1</base></item>
+        <item name="千米/时" shortName="km/h"><base>0.2777777777777778</base></item>
+        <item name="英寸/秒" shortName="in/s"><base>0.025399999832360003</base></item>
+        <item name="千米/秒" shortName="km/s"><base>1000</base></item>
+        <item name="光速" shortName="c"><base>299796138.6257345</base></item>
+        <item name="节" shortName="knot"><base>1.85184</base></item>
+        <item name="马赫" shortName="mach"><base>340.2981011365957</base></item>
+        <item name="英里/时" shortName="mile/h"><base>0.44704005836555</base></item>
+    </group>
+    <group name="temperature" base="0" def1="0" def2="1">
+        <item name="摄氏度" shortName="°C">
+            <base>1</base>
+            <calcRange>
+                <minVal>-273.15</minVal>
+            </calcRange>
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%+273.15</toBenchmark>
+                <fromBenchmark>%val%-273.15</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="华氏度" shortName="°F">
+            <calcRange>
+                <minVal>-459.67</minVal>
+            </calcRange>
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>(%val%+459.67)/1.8</toBenchmark>
+                <fromBenchmark>%val%*1.8-459.67</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="开氏度" shortName="K">
+            <base>1</base>
+        </item>
+        <item name="兰氏度" shortName="Ra">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%/1.8</toBenchmark>
+                <fromBenchmark>%val%*1.8</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="列氏度" shortName="Re">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%*1.25+273.15</toBenchmark>
+                <fromBenchmark>(%val%-273.15)*0.8</fromBenchmark>
+            </calcFormula>
+            <calcRange>
+                <minVal>-218.52</minVal>
+            </calcRange>
+        </item>
+    </group>
+    <group name="weight" base="0" def1="0" def2="1">
+        <item name="千克" shortName="kg"><base>1</base></item>
+        <item name="克" shortName="g"><base>0.001</base></item>
+        <item name="毫克" shortName="mg"><base>0.000001</base></item>
+        <item name="吨" shortName="T"><base>1000</base></item>
+        <item name="公担" shortName="q"><base>100</base></item>
+        <item name="磅" shortName="lb"><base>0.45359237001003544</base></item>
+        <item name="盎司" shortName="oz"><base>0.028349523124984257</base></item>
+        <item name="克拉" shortName="ct"><base>0.00019999999999999998</base></item>
+        <item name="格令" shortName="gr"><base>0.00006479891000000601</base></item>
+        <item name="长吨" shortName="lt"><base>1016.0469373043157</base></item>
+        <item name="短吨" shortName="st"><base>907.1847489905982</base></item>
+        <item name="英担" shortName="cwt"><base>50.802345316688765</base></item>
+        <item name="美担" shortName="cwt"><base>45.35923703803783</base></item>
+        <item name="英石" shortName="st"><base>6.3502931807165846</base></item>
+        <item name="打兰" shortName="dr"><base>0.0017718451953124578</base></item>
+        <item name="担" shortName="dan"><base>50</base></item>
+        <item name="斤" shortName="jin"><base>0.5</base></item>
+        <item name="两" shortName="liang"><base>0.05</base></item>
+        <item name="钱" shortName="qian"><base>0.005</base></item>
+        <item name="太阳质量" shortName=" "><base>1.989000000002222e+30</base></item>
+        <item name="地球质量" shortName=" "><base>5.980000000019973e+24</base></item>
+    </group>
+    <group name="time" base="5" def1="0" def2="2">
+        <item name="年" shortName="yr"><base>31536000</base></item>
+        <item name="周" shortName="week"><base>604800</base></item>
+        <item name="天" shortName="d"><base>86400</base></item>
+        <item name="时" shortName="h"><base>3600</base></item>
+        <item name="分" shortName="min"><base>60</base></item>
+        <item name="秒" shortName="s"><base>1</base></item>
+        <item name="毫秒" shortName="ms"><base>0.001</base></item>
+        <item name="微秒" shortName="μs"><base>0.000001</base></item>
+        <item name="纳秒" shortName="ns"><base>0.000000001</base></item>
+        <item name="皮秒" shortName="pms"><base>0.000000000001</base></item>
+    </group>
+    <group name="power" base="0" def1="0" def2="1">
+        <item name="千瓦" shortName="kW"><base>1</base></item>
+        <item name="米制马力" shortName="ps"><base>0.7354987</base></item>
+        <item name="千卡/秒" shortName="kcal/s"><base>4.184100163723474</base></item>
+        <item name="英制马力" shortName="hp"><base>0.7456997986759065</base></item>
+        <item name="英尺·磅/秒" shortName="ft·lb/s"><base>0.0013558178570130522</base></item>
+        <item name="焦耳/秒" shortName="J/s"><base>0.000999999932018919</base></item>
+        <item name="英热单位/秒" shortName="Btu/s"><base>1.055055791821847</base></item>
+        <item name="公斤·米/秒" shortName="kg·m/s"><base>0.009806649333333334</base></item>
+        <item name="牛顿·米/秒" shortName="N·m/s"><base>0.000999999932018919</base></item>
+    </group>
+    <group name="pressure" base="0" def1="0" def2="1">
+        <item name="帕斯卡" shortName="Pa = N/㎡"><base>1</base></item>
+        <item name="千帕" shortName="kPa"><base>1000</base></item>
+        <item name="百帕" shortName="hPa"><base>100</base></item>
+        <item name="巴" shortName="bar"><base>100000</base></item>
+        <item name="毫巴" shortName="mbar"><base>100</base></item>
+        <item name="标准大气压" shortName="atm"><base>101324.99658281449</base></item>
+        <item name="毫米汞柱(托)" shortName="mm Hg=Torr"><base>133.3223684217938</base></item>
+        <item name="磅力/英尺㎡" shortName="lbf/ft㎡"><base>47.88025694492305</base></item>
+        <item name="磅力/英寸㎡" shortName="lbf/in㎡ = PSI"><base>6894.756995117078</base></item>
+        <item name="英吋汞柱" shortName="in Hg"><base>3386.388158816525</base></item>
+        <item name="公斤力/厘米㎡" shortName="kgf/㎡"><base>98066.50124809236</base></item>
+        <item name="公斤力/米㎡" shortName="kgf/c㎡"><base>9.806649999980076</base></item>
+        <item name="毫米水柱" shortName="mmH₂O"><base>9.806613580198485</base></item>
+    </group>
+    <group name="energy" base="0" def1="0" def2="1">
+        <item name="焦耳" shortName="J"><base>0.2389</base>‬</item>
+        <item name="千焦耳" shortName="kJ"><base>238.9</base></item>
+        <item name="卡路里" shortName="cal"><base>1</base></item>
+        <item name="千卡路里" shortName="kcal"><base>1000</base></item>
+        <item name="英尺·磅" shortName="ft·lb"><base>0.32388828665460745</base></item>
+        <item name="英国热量单位" shortName="btu"><base>252.05424207289408</base></item>
+    </group>
+    <group name="angle" base="0" def1="0" def2="3">
+        <item name="度" shortName="°"><base>1</base></item>
+        <item name="分" shortName="′">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%/60</toBenchmark>
+                <fromBenchmark>%val%*60</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="秒" shortName="′′">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%/3600</toBenchmark>
+                <fromBenchmark>%val%*3600</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="弧度" shortName="rad">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>180/π*%val%</toBenchmark>
+                <fromBenchmark>π/180*%val%</fromBenchmark>
+            </calcFormula>
+        </item>
+        <item name="毫弧度" shortName="mrad">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>180/π*(%val%/1000)</toBenchmark>
+                <fromBenchmark>π/180*(%val%/1000)</fromBenchmark>
+            </calcFormula>
+        </item>
+        <!--<item name="百分度" shortName="gon">
+            <calcFormula>
+                <toBenchmark>gonToDeg(%val%)</toBenchmark>
+                <fromBenchmark>degToGon(%val%)</fromBenchmark>
+            </calcFormula>
+        </item>-->
+        <item name="直角" shortName="right angle"><base>90</base></item>
+        <item name="圆周" shortName="circle"><base>360</base></item>
+    </group>
+    <group name="data" base="0" def1="1" def2="2">
+        <item name="比特（BIT）" shortName="bit"><base>1</base></item>
+        <item name="字节（BYTE）" shortName="B"><base>8</base></item>
+        <item name="千字节（KB）" shortName="KB"><base>8192</base></item>
+        <item name="兆字节（MB）" shortName="MB"><base>8388608</base></item>
+        <item name="千兆字节（GB）" shortName="GB"><base>8589934592</base></item>
+        <item name="太字节（TB）" shortName="TB"><base>8796093022208</base></item>
+        <item name="拍字节（PB）" shortName="PB"><base>9007199254740992</base></item>
+    </group>
+    <group name="capital_number" base="0" def1="0" def2="1">
+        <item name="数字" shortName="">
+        </item>
+        <item name="大写" shortName="" selectable="false" stringConversion="true">
+            <calcType>2</calcType>
+            <calcFormula>
+                <toBenchmark>%val%</toBenchmark>
+                <fromBenchmark>capitalNumber(%val%)</fromBenchmark>
+            </calcFormula>
+        </item>
+    </group>
+</data>

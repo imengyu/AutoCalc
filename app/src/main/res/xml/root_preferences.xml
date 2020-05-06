@@ -35,6 +35,7 @@
             android:entryValues="@array/computation_accuracy_count_values"
             android:key="calc_computation_accuracy"
             android:persistent="false"
+            app:summary="@string/settings_key_computation_accuracy_summary"
             android:title="@string/settings_key_computation_accuracy"
             app:defaultValue="8"
             app:iconSpaceReserved="false" />
@@ -45,6 +46,21 @@
             app:key="calc_record_step"
             app:summary="@string/settings_key_record_step_summary"
             app:title="@string/settings_key_record_step" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="calc_auto_scientific_notation"
+            app:title="@string/settings_key_auto_scientific_notation" />
+
+        <ListPreference
+            android:entries="@array/scientific_notation_max_entries"
+            android:entryValues="@array/scientific_notation_max_values"
+            android:key="calc_scientific_notation_max"
+            android:persistent="false"
+            android:title="@string/settings_key_scientific_notation_max"
+            app:defaultValue="100000"
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 

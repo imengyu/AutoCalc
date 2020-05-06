@@ -14,6 +14,9 @@ public class AutoCalcTools {
 
   private AutoCalc autoCalc = null;
 
+  public String numberToScientificNotationStr(BigDecimal n) throws AutoCalcException, AutoCalcInfiniteException {
+    return n.stripTrailingZeros().toString().replace("+", "").replace("E", "×10^");
+  }
   /**
    * 数字转字符串
    *
@@ -30,15 +33,16 @@ public class AutoCalcTools {
    * @return 返回转为的字符串
    */
   public String numberToStr(BigDecimal n) {
+    BigDecimal n2 = n.stripTrailingZeros().setScale(autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP);
     switch (autoCalc.getBcMode()) {
       case BC_MODE_DEC:
-        return n.setScale(autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP).toPlainString();
+        return n2.toPlainString();
       case BC_MODE_BIN:
-        return Long.toBinaryString(n.setScale(autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP).longValue());
+        return Long.toBinaryString(n2.longValue());
       case BC_MODE_OCT:
-        return Long.toOctalString(n.setScale(autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP).longValue());
+        return Long.toOctalString(n2.longValue());
       case BC_MODE_HEX:
-        return Long.toHexString(n.setScale(autoCalc.getNumberScale(), BigDecimal.ROUND_HALF_UP).longValue());
+        return Long.toHexString(n2.longValue());
     }
     return "";
   }
@@ -71,7 +75,7 @@ public class AutoCalcTools {
     double result;
     if (str.startsWith(" ") || str.endsWith(" ")) str = str.trim();
 
-    if (str.endsWith("b")) result = Long.valueOf(str.substring(0, str.length() - 1), 2);
+    if (str.endsWith("b") && !str.startsWith("0x")) result = Long.valueOf(str.substring(0, str.length() - 1), 2);
     else if (str.startsWith("0b")) result = Long.valueOf(str.substring(2), 2);
     else if (str.startsWith("0x")) result = Long.valueOf(str.substring(2), 16);
     else if (str.startsWith("0o")) result = Long.valueOf(str.substring(2), 8);
@@ -80,7 +84,7 @@ public class AutoCalcTools {
     else if (autoCalc.getBcMode() == BC_MODE_BIN) result = Long.valueOf(str, 2);
     else if (autoCalc.getBcMode() == BC_MODE_OCT) result = Long.valueOf(str, 8);
     else if (autoCalc.getBcMode() == BC_MODE_HEX) result = Long.valueOf(str, 16);
-    else result = Double.valueOf(str);
+    else return new BigDecimal(str);
 
     return BigDecimal.valueOf(result);
   }
@@ -148,7 +152,7 @@ public class AutoCalcTools {
    */
   public String getNumberStrRadix(String str) {
     if (str.startsWith(" ") || str.endsWith(" ")) str = str.trim();
-    if (str.endsWith("b") || str.startsWith("0b")) return "b";
+    if ((str.endsWith("b") || str.startsWith("0b") && !str.startsWith("0x"))) return "b";
     else if (str.endsWith("o") || str.startsWith("0o")) return "o";
     else if (str.endsWith("h") || str.startsWith("0x")) return "h";
     return "d";

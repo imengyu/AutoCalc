@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class AutofitHelper {
 
     private static final String TAG = "AutoFitTextHelper";
-    private static final boolean SPEW = true;
+    private static final boolean SPEW = false;
 
     // Minimum size of the text in pixels
     private static final int DEFAULT_MIN_TEXT_SIZE = 8; //sp

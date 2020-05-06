@@ -46,8 +46,11 @@ public class AutoCalcMath {
    * 计算阶乘
    * @param d d
    */
-  public BigDecimal fact(BigDecimal d) {
+  public BigDecimal fact(BigDecimal d) throws AutoCalcInfiniteException {
     //
+    if(d.compareTo(BigDecimal.valueOf(10000)) >= 0)
+      throw new AutoCalcInfiniteException();
+
     BigDecimal sum = BigDecimal.valueOf(1);
     BigDecimal step = BigDecimal.valueOf(1);
     BigDecimal i = BigDecimal.valueOf(1);

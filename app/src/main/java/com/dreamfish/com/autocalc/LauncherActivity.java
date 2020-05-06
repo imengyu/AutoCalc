@@ -17,9 +17,10 @@ public class LauncherActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1500);//使程序休眠一秒
+                    sleep(200);
                     Intent it = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(it);
+                    sleep(800);
                     finish();//关闭当前活动
                 } catch (Exception e) {
                     e.printStackTrace();

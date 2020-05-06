@@ -8,6 +8,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.dreamfish.com.autocalc.utils.StatusBarUtils;
+import com.dreamfish.com.autocalc.widgets.MyTitleBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,27 +21,27 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
-        myWebView = findViewById(R.id.webview_help);
+        StatusBarUtils.setLightMode(this);
+
+        MyTitleBar title_bar = findViewById(R.id.title_bar);
+        title_bar.setTitle(getTitle());
+        title_bar.setLeftIconOnClickListener((View v) -> finish());
+
+        WebView myWebView = findViewById(R.id.webview_help);
         myWebView.loadUrl("file:///android_asset/help.html");
 
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(false);
     }
 
-    private WebView myWebView;
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 }
