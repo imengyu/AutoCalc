@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.dreamfish.com.autocalc.dialog.CommonDialogs;
 import com.dreamfish.com.autocalc.fragment.ConverterFragment;
 import com.dreamfish.com.autocalc.fragment.MainFragment;
 import com.dreamfish.com.autocalc.utils.AlertDialogTool;
@@ -27,9 +28,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import static com.dreamfish.com.autocalc.dialog.CommonDialogs.RESULT_SETTING_ACTIVITY;
+
 public class MainActivity extends AppCompatActivity {
 
-    private final int RESULT_SETTING_ACTIVITY = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,13 +186,13 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.action_help:
-                    showHelp();
+                    CommonDialogs.showHelp(this);
                     break;
                 case R.id.action_settings:
-                    showSettings();
+                    CommonDialogs.showSettings(this);
                     break;
                 case R.id.action_about:
-                    showAbout();
+                    CommonDialogs.showAbout(this);
                     break;
                 case R.id.action_show_full:
                     fragmentMain.showFullText();
@@ -207,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
 
     //退出提示
     private long mExitTime;
@@ -240,23 +242,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void showHelp() {
-        startActivity(new Intent(MainActivity.this, HelpActivity.class));
-    }
-    private void showSettings() {
-        startActivityForResult(new Intent(MainActivity.this, SettingsActivity.class), RESULT_SETTING_ACTIVITY);
-    }
-    //关于
-    private void showAbout()  {
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View v = inflater.inflate(R.layout.dialog_about, null);
 
-        AlertDialog dialog = AlertDialogTool.buildCustomBottomPopupDialog(this, v);
-        dialog.show();
-
-        v.findViewById(R.id.btn_help).setOnClickListener(view -> { dialog.dismiss();showHelp(); });
-        v.findViewById(R.id.btn_ok).setOnClickListener(view -> dialog.dismiss());
-    }
 
 }

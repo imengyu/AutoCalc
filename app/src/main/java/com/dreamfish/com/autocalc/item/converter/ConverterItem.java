@@ -161,8 +161,13 @@ public class ConverterItem {
     writeText("0");
   }
   public void writeText(String s) {
-    if (textBuffer.toString().equals("0") && !s.equals("."))
-      textBuffer = new StringBuilder(s);
+
+    if(s.equals(".") && TextUtils.containsChar(textBuffer, '.'))
+      return;
+    if(s.equals("-") && TextUtils.containsChar(textBuffer, '-'))
+      return;
+
+    if (textBuffer.length() == 1 && textBuffer.charAt(0) == '0' && !s.equals(".")) textBuffer = new StringBuilder(s);
     else if (textBuffer.length() < 100) textBuffer.append(s);
   }
   public void delText() {

@@ -76,4 +76,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/settings_about_header">
+
+        <Preference
+            app:title="@string/settings_key_check_update"
+            app:iconSpaceReserved="false"
+            app:key="app_check_update" />
+        <Preference
+            app:title="@string/settings_key_privacy_policy"
+            app:iconSpaceReserved="false"
+            app:key="app_privacy_policy" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

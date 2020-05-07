@@ -13,12 +13,15 @@ import androidx.appcompat.app.AlertDialog;
 public class AlertDialogTool {
 
     public static AlertDialog buildCustomBottomPopupDialog(Context context, View v) {
-        return buildCustomStylePopupDialogGravity(context, v, Gravity.BOTTOM, R.style.DialogBottomPopup);
+        return buildCustomStylePopupDialogGravity(context, v, Gravity.BOTTOM, R.style.DialogBottomPopup, true);
     }
     public static AlertDialog buildCustomStylePopupDialogGravity(Context context, View v, int gravity, int anim) {
+        return buildCustomStylePopupDialogGravity(context, v, gravity, anim, true);
+    }
+    public static AlertDialog buildCustomStylePopupDialogGravity(Context context, View v, int gravity, int anim, boolean cancelable) {
         AlertDialog dialog = new AlertDialog.Builder(context, R.style.WhiteRoundDialog)
                 .setView(v)
-                .setCancelable(true)
+                .setCancelable(cancelable)
                 .create();
 
         Window window = dialog.getWindow();

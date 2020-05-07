@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +44,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import static android.content.Context.VIBRATOR_SERVICE;
+
 public class ConverterFragment extends Fragment {
 
   public static ConverterFragment newInstance(){
@@ -58,6 +61,8 @@ public class ConverterFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    vibrator = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
 
     initResources();
     initUnitData();
@@ -77,7 +82,12 @@ public class ConverterFragment extends Fragment {
 
   }
 
+  private void vibratorVibrate() {
+    if(useTouchVibrator) vibrator.vibrate(30);
+  }
+
   private AutoCalc autoCalc = new AutoCalc();
+  private Vibrator vibrator;
 
   private Resources resources;
   private int unit_text_orange;
@@ -176,14 +186,17 @@ public class ConverterFragment extends Fragment {
   private void inputText(String s) {
     currentInputItem.writeText(s);
     updateAllConverter();
+    vibratorVibrate();
   }
   private void delText() {
     currentInputItem.delText();
     updateAllConverter();
+    vibratorVibrate();
   }
   private void clearText() {
     currentInputItem.clearText();
     updateAllConverter();
+    vibratorVibrate();
   }
 
   //初始化界面
@@ -209,6 +222,8 @@ public class ConverterFragment extends Fragment {
 
     view.findViewById(R.id.view_input_one).setOnClickListener(v -> setCurrentInput(0));
     view.findViewById(R.id.view_input_two).setOnClickListener(v -> setCurrentInput(1));
+    text_input_one.setOnClickListener(v -> setCurrentInput(0));
+    text_input_two.setOnClickListener(v -> setCurrentInput(1));
 
     view.findViewById(R.id.btn_pad_ac).setOnClickListener(v -> clearText());
     view.findViewById(R.id.btn_pad_del).setOnClickListener(v -> delText());
@@ -364,6 +379,7 @@ public class ConverterFragment extends Fragment {
             }
             else if ("header".equals(parser.getName())) {
               data = new ConverterData(parser.nextText());
+              group.add(data);
             }
             else if ("item".equals(parser.getName())) {
               String name = parser.getAttributeValue(null, "name");
@@ -396,7 +412,7 @@ public class ConverterFragment extends Fragment {
           }
           case XmlPullParser.END_TAG: {
             if (group != null) {
-              if ("item".equals(parser.getName()) || "header".equals(parser.getName()))
+              if ("item".equals(parser.getName()))
                 group.add(data);
               else if ("group".equals(parser.getName()))
                 convertData.add(group);
@@ -413,7 +429,7 @@ public class ConverterFragment extends Fragment {
   private void buildSelectUnitDialog() {
 
       final List<FunctionsListItem> functionsListItems = new ArrayList<>();
-      final FunctionsListAdapter functionsListAdapter = new FunctionsListAdapter(getContext(), R.layout.item_function, functionsListItems);
+      final FunctionsListAdapter functionsListAdapter = new FunctionsListAdapter(getContext(), R.layout.item_function_left, functionsListItems);
 
       LayoutInflater inflater = LayoutInflater.from(getContext());
       View v = inflater.inflate(R.layout.dialog_funs_list, null);
@@ -448,6 +464,8 @@ public class ConverterFragment extends Fragment {
   //设置
   //=====================
 
+  private boolean useTouchVibrator = true;
+
   private void loadSettings() {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
     autoCalc.setRecordStep(prefs.getBoolean("calc_record_step", false));
@@ -455,6 +473,7 @@ public class ConverterFragment extends Fragment {
     autoCalc.setUseDegree(prefs.getBoolean("calc_use_deg", true));
     autoCalc.setAutoScientificNotation(prefs.getBoolean("calc_auto_scientific_notation", true));
     autoCalc.setScientificNotationMax(prefs.getInt("calc_scientific_notation_max", 100000));
+    useTouchVibrator = prefs.getBoolean("calc_use_vibrator", true);
   }
   public void updateSettings() {
     loadSettings();

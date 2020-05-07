@@ -1077,7 +1077,7 @@ public class AutoCalc {
    * 自动转换进制
    * @param stringBuilder 数字
    */
-  private void autoBinaryConversion(StringBuilder stringBuilder) {
+  private void autoBinaryConversion(StringBuilder stringBuilder) throws AutoCalcException {
     String radix = tools.getNumberStrRadix(stringBuilder.toString());
     String fixNumber = null;
 

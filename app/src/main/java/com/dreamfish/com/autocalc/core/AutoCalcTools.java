@@ -71,22 +71,27 @@ public class AutoCalcTools {
    * @param str 字符串
    * @return 返回转为的数字
    */
-  public BigDecimal strToNumber(String str) {
-    double result;
-    if (str.startsWith(" ") || str.endsWith(" ")) str = str.trim();
+  public BigDecimal strToNumber(String str) throws AutoCalcException {
 
-    if (str.endsWith("b") && !str.startsWith("0x")) result = Long.valueOf(str.substring(0, str.length() - 1), 2);
-    else if (str.startsWith("0b")) result = Long.valueOf(str.substring(2), 2);
-    else if (str.startsWith("0x")) result = Long.valueOf(str.substring(2), 16);
-    else if (str.startsWith("0o")) result = Long.valueOf(str.substring(2), 8);
-    else if (str.endsWith("o")) result = Long.valueOf(str.substring(0, str.length() - 1), 8);
-    else if (str.endsWith("h")) result = Long.valueOf(str.substring(0, str.length() - 1), 16);
-    else if (autoCalc.getBcMode() == BC_MODE_BIN) result = Long.valueOf(str, 2);
-    else if (autoCalc.getBcMode() == BC_MODE_OCT) result = Long.valueOf(str, 8);
-    else if (autoCalc.getBcMode() == BC_MODE_HEX) result = Long.valueOf(str, 16);
-    else return new BigDecimal(str);
+    try {
+      double result;
+      if (str.startsWith(" ") || str.endsWith(" ")) str = str.trim();
 
-    return BigDecimal.valueOf(result);
+      if (str.endsWith("b") && !str.startsWith("0x")) result = Long.valueOf(str.substring(0, str.length() - 1), 2);
+      else if (str.startsWith("0b")) result = Long.valueOf(str.substring(2), 2);
+      else if (str.startsWith("0x")) result = Long.valueOf(str.substring(2), 16);
+      else if (str.startsWith("0o")) result = Long.valueOf(str.substring(2), 8);
+      else if (str.endsWith("o")) result = Long.valueOf(str.substring(0, str.length() - 1), 8);
+      else if (str.endsWith("h")) result = Long.valueOf(str.substring(0, str.length() - 1), 16);
+      else if (autoCalc.getBcMode() == BC_MODE_BIN) result = Long.valueOf(str, 2);
+      else if (autoCalc.getBcMode() == BC_MODE_OCT) result = Long.valueOf(str, 8);
+      else if (autoCalc.getBcMode() == BC_MODE_HEX) result = Long.valueOf(str, 16);
+      else return new BigDecimal(str);
+
+      return BigDecimal.valueOf(result);
+    } catch (NumberFormatException e) {
+      throw new AutoCalcException("意外的：" + str);
+    }
   }
   /**
    * 检查字符串是否是数字
@@ -127,7 +132,7 @@ public class AutoCalcTools {
    * @param stringBuilder 字符串
    * @return 数字BigDecimal
    */
-  public BigDecimal strToNumber(StringBuilder stringBuilder) {
+  public BigDecimal strToNumber(StringBuilder stringBuilder) throws AutoCalcException {
     return strToNumber(stringBuilder.toString());
   }
   /**

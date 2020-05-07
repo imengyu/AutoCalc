@@ -33,7 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="6dp"
-            android:minHeight="400dp" />
+            android:minHeight="400dp"
+            android:divider="@color/cal_divider_line"
+            android:dividerHeight="1px" />
 
         <TextView
             android:id="@+id/text_empty"

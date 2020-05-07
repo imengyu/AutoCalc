@@ -12,5 +12,11 @@ public class TextUtils {
     public static boolean isNumber(CharSequence s) {
         return !isEmpty(s) && Pattern.matches("-?[0-9]*(\\.?)[0-9]*", s);
     }
-
+    public static boolean containsChar(StringBuilder sb, char ch) {
+        int size = sb.length();
+        for (int i = 0; i < size; i++) {
+            if(sb.charAt(i) == ch) return true;
+        }
+        return false;
+    }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AutoCalc</string>
     <string name="app_description">一款超级简单的 Android 计算器</string>
-    <string name="app_version">V.1.3</string>
+    <string name="app_version">V1.3 20200608</string>
     <string name="app_copyright">© 2020 By 梦欤</string>
     <string name="app_description_long">这是一款超级简单的 Android 计算器，是梦欤的学习作品</string>
 
@@ -91,6 +91,7 @@
     <string name="title_activity_date_range">日期相差计算</string>
     <string name="title_to_converter">换算</string>
     <string name="title_full_text">完整字符</string>
+    <string name="title_reminder">温馨提示</string>
 
     <string name="title_show_functions">所有函数</string>
     <string name="title_custom_input">手动输入算式</string>
@@ -102,6 +103,8 @@
     <!-- Preference Titles -->
     <string name="settings_general_header">通用</string>
     <string name="settings_others_header">其他</string>
+    <string name="settings_about_header">关于</string>
+
     <!-- Preferences -->
     <string name="settings_key_history_count">计算保存历史记录条数</string>
     <string name="settings_key_vibrator">按键触摸震动</string>
@@ -113,5 +116,31 @@
     <string name="settings_key_scientific_notation_max">自动科学计数法开始大小</string>
     <string name="settings_key_record_step">记录计算步骤</string>
     <string name="settings_key_record_step_summary">开启后可以显示当前算式的计算步骤，您可以在顶部按钮查看</string>
+
+    <string name="settings_key_privacy_policy">隐私政策以及许可协议</string>
+    <string name="settings_key_check_update">检查更新</string>
+
+    <!-- agreement -->
+    <string name="text_agreement_base_welecome">
+        欢迎使用 AutoCalc ！
+        \nAutoCalc 非常重视您的隐私和个人信息保护。
+        \n在您使用 AutoCalc 前，请认真阅读 <a href="https://imyzc.com/t?x=autocalc_argeement">《用户协议》</a> 及 <a href="https://imyzc.com/t?x=privacy_policy">《隐私政策》</a> ，您同意并接受全部条款后方可开始使用“AutoCalc”。
+        \n另外为了更好地使用产品功能，需征求您的允许，获得以下权限：
+    </string>
+    <string name="text_agreement_base"><a href="https://imyzc.com/t?x=autocalc_argeement">《用户协议》</a>\n<a href="https://imyzc.com/t?x=privacy_policy">《隐私政策》</a>
+        \n\n为了更好地使用产品功能，应用还征求您的允许获得以下权限：
+    </string>
+
+    <string name="text_agreement_devinfo">设备信息</string>
+    <string name="text_agreement_devinfo_sub">包括设备ID/屏幕尺寸/操作系统/设备型号/网络连接模式/移动国家代码/屏幕分辨率及系统语言；用于根据不同的设备及系统版本来提供不同的功能和体验，获取产品的使用情况及Bug信息，帮助我们不断改进产品功能和体验。</string>
+
+    <string name="text_agreement_interenet">网络</string>
+    <string name="text_agreement_interenet_sub">
+        包括IP地址；帮助我们统计产品使用情况，以及更新数据、反馈产品BUG，帮助我们不断改进产品功能和体验。
+    </string>
+
+    <string name="text_agreement_lost">如果您不同意或拒绝授予这些权限，您将无法使用 App 的部分或全部功能。</string>
+    <string name="text_agreement_allow">同意并继续</string>
+    <string name="text_agreement_not_allow">不同意并退出</string>
 
 </resources>

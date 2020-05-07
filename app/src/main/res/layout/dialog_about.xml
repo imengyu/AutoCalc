@@ -43,6 +43,12 @@
                 app:srcCompat="@drawable/ic_beta" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_description"
+            android:textAlignment="center" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,35 +71,38 @@
                 android:textAlignment="textStart" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_description"
-            android:textAlignment="center" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_help"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
-                android:layout_marginRight="2dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/btn_pad_number_last_s"
                 android:text="@string/action_help"
                 android:textColor="@android:color/black" />
 
             <Button
-                android:id="@+id/btn_ok"
-                android:layout_width="0dp"
+                android:id="@+id/btn_privacy_policy"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_pad_number_last_s"
+                android:text="@string/settings_key_privacy_policy"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_calculate"
                 android:text="@string/action_ok"

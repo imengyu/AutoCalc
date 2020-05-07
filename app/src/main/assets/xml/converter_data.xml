@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data>
-    <group name="length" base="1" def1="0" def2="1">
+    <group name="length" base="1" def1="1" def2="2">
         <header>[公制]</header>
 
         <item name="米" shortName="m"><base>1</base></item>
@@ -50,7 +50,7 @@
         <item name="平方英尺" shortName="ft²"><base>0.1111111111111111</base></item>
         <item name="平方英寸" shortName="in²"><base>0.0011111111111111111</base></item>
     </group>
-    <group name="volume" base="0" def1="0" def2="1">
+    <group name="volume" base="0" def1="1" def2="2">
         <header>[公制]</header>
         <item name="立方米" shortName="m³"><base>1</base></item>
         <item name="立方分米(升)" shortName="dm³ (l)"><base>0.001</base></item>
@@ -153,7 +153,7 @@
             </calcRange>
         </item>
     </group>
-    <group name="weight" base="0" def1="0" def2="1">
+c    <group name="weight" base="0" def1="0" def2="1">
         <item name="千克" shortName="kg"><base>1</base></item>
         <item name="克" shortName="g"><base>0.001</base></item>
         <item name="毫克" shortName="mg"><base>0.000001</base></item>
