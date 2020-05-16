@@ -45,7 +45,7 @@ public class ConvertUpMoney {
 
     //beyond超出计算能力，直接返回
     if (integerStr.length() > IUNIT.length) {
-      return str + "：超出计算能力";
+      return "超出计算能力";
     }
 
     int[] integers = toIntArray(integerStr);//整数部分数字

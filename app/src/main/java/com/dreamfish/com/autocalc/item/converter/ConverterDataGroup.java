@@ -10,6 +10,7 @@ public class ConverterDataGroup {
   public ConverterDataGroup(String name) {
     group = new ArrayList<>();
     defalutIndex = new int [MAX_ONEPAGE_CONVERTER_COUNT];
+    this.name = name;
   }
 
   private List<ConverterData> group;

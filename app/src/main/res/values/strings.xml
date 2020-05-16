@@ -13,6 +13,7 @@
     <string name="action_close">关闭</string>
     <string name="action_show_functions">查看所有函数</string>
     <string name="action_show_calc_step">查看计算步骤</string>
+    <string name="action_retry">再试一次</string>
 
     <string name="action_choose_mode">选择模式</string>
     <string name="action_ok">确定</string>
@@ -119,6 +120,10 @@
 
     <string name="settings_key_privacy_policy">隐私政策以及许可协议</string>
     <string name="settings_key_check_update">检查更新</string>
+
+    <string name="text_update_rate_failed">联网获取汇率失败！<br/>{0}</string>
+    <string name="text_update_rate_success">联网更新汇率成功！{0}</string>
+    <string name="text_updating_rate">正在请求汇率数据<br/>请稍后</string>
 
     <!-- agreement -->
     <string name="text_agreement_base_welecome">

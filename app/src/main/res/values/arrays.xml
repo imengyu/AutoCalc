@@ -155,6 +155,7 @@
 
     <!-- Converts help -->
     <string-array name="converts_texts">
+
         <item>长度单位转换</item>
         <item>面积单位转换</item>
         <item>体积单位转换</item>
@@ -167,6 +168,7 @@
         <item>热量单位转换</item>
         <item>角度单位转换</item>
         <item>数据大小单位转换</item>
+        <item>汇率转换</item>
         <item>人民币金额中文大写</item>
     </string-array>
     <string-array name="converts_icons" translatable="false">
@@ -183,6 +185,7 @@
         <item>@drawable/menu_icon_conversion_angle</item>
         <item>@drawable/menu_icon_conversion_radix</item>
         <item>@drawable/menu_icon_conversion_currency</item>
+        <item>@drawable/word_figure</item>
     </string-array>
 
 </resources>

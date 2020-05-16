@@ -16,7 +16,10 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dreamfish.com.autocalc.R;
 import com.dreamfish.com.autocalc.core.AutoCalc;
 import com.dreamfish.com.autocalc.item.converter.ConverterData;
@@ -27,6 +30,8 @@ import com.dreamfish.com.autocalc.item.FunctionsListItem;
 import com.dreamfish.com.autocalc.item.adapter.ConvertsListAdapter;
 import com.dreamfish.com.autocalc.item.adapter.FunctionsListAdapter;
 import com.dreamfish.com.autocalc.utils.AlertDialogTool;
+import com.dreamfish.com.autocalc.utils.DateUtils;
+import com.dreamfish.com.autocalc.utils.HttpUtils;
 import com.dreamfish.com.autocalc.utils.PixelTool;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -35,7 +40,10 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.Format;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -94,14 +102,28 @@ public class ConverterFragment extends Fragment {
   private int convert_unit_value;
   private String text_error;
   private String text_out_of_range;
+  private String text_update_rate_success;
+  private String text_update_rate_failed;
+  private String text_updating_rate;
+
 
   private LinearLayout layout_root;
 
+  private View view_input_one;
+  private View view_input_two;
+  private View view_cv_one;
+  private View view_cv_two;
   private TextView text_input_one;
   private TextView text_input_two;
   private Button btn_pad_number_negative;
   private Button btn_unit_choose_one;
   private Button btn_unit_choose_two;
+
+  private TextView text_err;
+  private View view_err;
+  private Button btn_retry;
+
+  private boolean exchangeRateDataRequested = false;
 
   private ConverterItem currentInputItem = null;
   private List<ConverterItem> currentInputs = new ArrayList<>();
@@ -128,6 +150,12 @@ public class ConverterFragment extends Fragment {
     }
 
     buildSelectUnitDialog();
+
+    hideErr();
+
+    //汇率数据请求
+    if(currentConvertGroup.getName().equals("exchange_rate") && !exchangeRateDataRequested)
+      requestExchangeRate();
 
     //Set default index
     for (int i1 = 0; i1 < currentInputs.size() && i1 < ConverterDataGroup.MAX_ONEPAGE_CONVERTER_COUNT; i1++) {
@@ -208,6 +236,9 @@ public class ConverterFragment extends Fragment {
     convert_unit_value = resources.getColor(R.color.convert_unit_value, null);
     text_error = resources.getString(R.string.text_error);
     text_out_of_range = resources.getString(R.string.text_out_of_range);
+    text_update_rate_success = resources.getString(R.string.text_update_rate_success);
+    text_update_rate_failed = resources.getString(R.string.text_update_rate_failed);
+    text_updating_rate = resources.getString(R.string.text_updating_rate);
   }
   private void initControls(View view) {
 
@@ -220,8 +251,13 @@ public class ConverterFragment extends Fragment {
     currentInputs.add(new ConverterItem(autoCalc, text_input_one, view.findViewById(R.id.text_unit_one), btn_unit_choose_one));
     currentInputs.add(new ConverterItem(autoCalc, text_input_two, view.findViewById(R.id.text_unit_two), btn_unit_choose_two));
 
-    view.findViewById(R.id.view_input_one).setOnClickListener(v -> setCurrentInput(0));
-    view.findViewById(R.id.view_input_two).setOnClickListener(v -> setCurrentInput(1));
+    view_input_one = view.findViewById(R.id.view_input_one);
+    view_input_two = view.findViewById(R.id.view_input_two);
+    view_cv_one = view.findViewById(R.id.view_cv_one);
+    view_cv_two = view.findViewById(R.id.view_cv_two);
+
+    view_input_one.setOnClickListener(v -> setCurrentInput(0));
+    view_input_two.setOnClickListener(v -> setCurrentInput(1));
     text_input_one.setOnClickListener(v -> setCurrentInput(0));
     text_input_two.setOnClickListener(v -> setCurrentInput(1));
 
@@ -239,7 +275,9 @@ public class ConverterFragment extends Fragment {
       chooseUnitDialog.show();
     });
 
-
+    text_err = view.findViewById(R.id.text_err);
+    view_err = view.findViewById(R.id.view_err);
+    btn_retry = view.findViewById(R.id.btn_retry);
   }
   private void initLayout(View view) {
 
@@ -287,6 +325,22 @@ public class ConverterFragment extends Fragment {
     layoutParams.height = pad_height;
     layoutParams.width = btn_width;
     view_pad_right.setLayoutParams(layoutParams);
+  }
+  private void hideErr() {
+    view_err.setVisibility(View.GONE);
+    view_cv_one.setVisibility(View.VISIBLE);
+    view_cv_two.setVisibility(View.VISIBLE);
+  }
+  private void showErr(String text) {
+    showErr(text, false, null);
+  }
+  private void showErr(String text, boolean showRetry, View.OnClickListener onRetry) {
+    view_err.setVisibility(View.VISIBLE);
+    view_cv_one.setVisibility(View.GONE);
+    view_cv_two.setVisibility(View.GONE);
+    text_err.setText(text);
+    btn_retry.setVisibility(showRetry ? View.VISIBLE : View.GONE);
+    btn_retry.setOnClickListener(onRetry);
   }
 
   private AlertDialog chooseConvertDialog;
@@ -460,6 +514,69 @@ public class ConverterFragment extends Fragment {
       v.findViewById(R.id.btn_cancel).setOnClickListener(view -> chooseUnitDialog.dismiss());
 
   }
+
+  // 汇率数据
+  //=====================
+
+  private AlertDialog requestingExchangeRateDialog = null;
+  private String requestingExchangeRateErr = "";
+
+  private void requestExchangeRate() {
+
+    requestingExchangeRateDialog = AlertDialogTool.buildLoadingDialog(getContext(), text_updating_rate, false);
+    requestingExchangeRateDialog.show();
+
+    new Thread(() -> {
+      boolean success = false;
+
+      try {
+        Thread.sleep(700);
+        JSONObject object = HttpUtils.httpGetJson("http://localhost:3011");
+        if(object.getBoolean("success")) {
+          JSONArray array = object.getJSONArray("data");
+          ConverterDataGroup convertGroupRate = null;
+          for (ConverterDataGroup g : convertData)
+            if(g.getName().equals("exchange_rate")){
+              convertGroupRate = g;
+              break;
+            }
+
+          List<ConverterData> itemDatas = convertGroupRate.getGroup();
+          for (int i = 0, c = array.size(); i < c; i++) {
+            JSONObject itemObject = array.getJSONObject(i);
+            String code = itemObject.getString("code");
+
+            for (ConverterData d : itemDatas)
+              if(d.unitNameShort.equals(code)){
+                d.unitBase = Double.parseDouble(itemObject.getString("base")) / 1;
+                break;
+              }
+          }
+          success = true;
+        } else requestingExchangeRateErr = object.getString("message");
+        exchangeRateDataRequested = true;
+      } catch (Exception e) {
+        e.printStackTrace();
+        requestingExchangeRateErr = e.getMessage();
+      }
+
+      if(success) {
+        ConverterFragment.this.getActivity().runOnUiThread(() -> {
+          Toast.makeText(ConverterFragment.this.getContext(),
+                  MessageFormat.format(text_update_rate_success, DateUtils.format(new Date())), Toast.LENGTH_LONG).show();
+          requestingExchangeRateDialog.cancel();
+        });
+      }
+      else {
+        ConverterFragment.this.getActivity().runOnUiThread(() -> {
+          showErr(MessageFormat.format(text_update_rate_failed, requestingExchangeRateErr),
+                  true, (v) -> requestExchangeRate());
+          requestingExchangeRateDialog.cancel();
+        });
+      }
+    }).start();
+  }
+
 
   //设置
   //=====================

@@ -55,4 +55,9 @@
         <item name="android:windowExitAnimation">@anim/dialog_bottom_up_hide</item>
     </style>
 
+    <style name="DialogFadePopup" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/fade_show</item>
+        <item name="android:windowExitAnimation">@anim/fade_hide</item>
+    </style>
+
 </resources>

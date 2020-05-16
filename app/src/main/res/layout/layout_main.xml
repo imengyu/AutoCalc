@@ -41,12 +41,14 @@
                 android:id="@+id/text_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
+                android:singleLine="false"
+                android:maxLines="2"
                 android:text="@string/text_zero"
                 android:textAlignment="textEnd"
                 android:textColor="@color/show_screen_display_color"
                 android:textIsSelectable="true"
                 android:textSize="50sp"
+                android:ellipsize="none"
                 app:sizeToFit="true"
                 app:minTextSize="22sp" />
 
@@ -60,7 +62,8 @@
                 android:textIsSelectable="true"
                 android:textSize="32sp"
                 android:visibility="gone"
-                android:singleLine="true"
+                android:maxLines="2"
+                android:ellipsize="none"
                 app:sizeToFit="true"
                 app:minTextSize="16sp"  />
 

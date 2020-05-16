@@ -270,6 +270,37 @@ c    <group name="weight" base="0" def1="0" def2="1">
         <item name="太字节（TB）" shortName="TB"><base>8796093022208</base></item>
         <item name="拍字节（PB）" shortName="PB"><base>9007199254740992</base></item>
     </group>
+    <group name="exchange_rate" base="0" def1="1" def2="2">
+
+        <item name="人民币" shortName="CNY"><base>1</base></item>
+        <item name="美元" shortName="USD"><base>0</base></item>
+        <item name="欧元" shortName="EUR"><base>0</base></item>
+        <item name="英镑" shortName="GBP"><base>0</base></item>
+        <item name="港币" shortName="HKD"><base>0</base></item>
+        <item name="日元" shortName="JPY"><base>0</base></item>
+        <item name="韩国元" shortName="KRW"><base>0</base></item>
+        <item name="澳门元" shortName="MOP"><base>0</base></item>
+
+        <item name="阿联酋迪拉姆" shortName="AED"><base>0</base></item>
+        <item name="澳大利亚元" shortName="AUD"><base>0</base></item>
+        <item name="巴西里亚尔" shortName="BRL"><base>0</base></item>
+        <item name="加拿大元" shortName="CAD"><base>0</base></item>
+        <item name="瑞士法郎" shortName="CHF"><base>0</base></item>
+        <item name="丹麦克朗" shortName="DKK"><base>0</base></item>
+        <item name="印度卢比" shortName="INR"><base>0</base></item>
+        <item name="林吉特" shortName="MYR"><base>0</base></item>
+        <item name="挪威克朗" shortName="NOK"><base>0</base></item>
+        <item name="新西兰元" shortName="NZD"><base>0</base></item>
+        <item name="菲律宾比索" shortName="PHP"><base>0</base></item>
+        <item name="卢布" shortName="RUB"><base>0</base></item>
+        <item name="沙特里亚尔" shortName="SAR"><base>0</base></item>
+        <item name="瑞典克朗" shortName="SEK"><base>0</base></item>
+        <item name="新加坡元" shortName="SGD"><base>0</base></item>
+        <item name="泰国铢" shortName="THB"><base>0</base></item>
+        <item name="土耳其里拉" shortName="TRY"><base>0</base></item>
+        <item name="新台币" shortName="TWD"><base>0</base></item>
+        <item name="南非兰特" shortName="ZAR"><base>0</base></item>
+    </group>
     <group name="capital_number" base="0" def1="0" def2="1">
         <item name="数字" shortName="">
         </item>

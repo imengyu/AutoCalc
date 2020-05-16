@@ -164,10 +164,12 @@ public class ConverterItem {
 
     if(s.equals(".") && TextUtils.containsChar(textBuffer, '.'))
       return;
-    if(s.equals("-") && TextUtils.containsChar(textBuffer, '-'))
-      return;
 
     if (textBuffer.length() == 1 && textBuffer.charAt(0) == '0' && !s.equals(".")) textBuffer = new StringBuilder(s);
+    else if (s.equals("-")) {
+      if(TextUtils.containsChar(textBuffer, '-')) textBuffer.delete(0, 1);
+      else textBuffer.insert(0, '-');
+    }
     else if (textBuffer.length() < 100) textBuffer.append(s);
   }
   public void delText() {
