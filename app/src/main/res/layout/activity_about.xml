@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTransparent">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
+
+    <com.dreamfish.com.autocalc.widgets.MyTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@drawable/dialog_white_bg"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -21,7 +30,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
@@ -73,30 +82,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btn_help"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn_pad_number_last_s"
-                android:text="@string/action_help"
-                android:textColor="@android:color/black" />
-
-            <Button
-                android:id="@+id/btn_privacy_policy"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_pad_number_last_s"
-                android:text="@string/settings_key_privacy_policy"
-                android:textColor="@android:color/black" />
 
             <Button
                 android:id="@+id/btn_ok"
@@ -110,4 +98,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

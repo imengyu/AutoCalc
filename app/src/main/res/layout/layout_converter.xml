@@ -168,6 +168,43 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/view_exchange_rate_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0"
+            android:text="@string/text_rate_updated_at" />
+
+        <TextView
+            android:id="@+id/text_ex_rate_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" />
+
+        <TextView
+            android:id="@+id/btn_update_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:text="@string/text_update_rate"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/view_pad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,12 +1,18 @@
 package com.dreamfish.com.autocalc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.dreamfish.com.autocalc.dialog.CommonDialogs;
+import com.dreamfish.com.autocalc.utils.PermissionsUtils;
+import com.dreamfish.com.autocalc.utils.StatusBarUtils;
+import com.dreamfish.com.autocalc.utils.UpdaterUtils;
+import com.dreamfish.com.autocalc.widgets.MyTitleBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -21,11 +27,15 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
+        StatusBarUtils.setLightMode(this);
+
+        MyTitleBar title_bar = findViewById(R.id.title_bar);
+        title_bar.setTitle(getTitle());
+        title_bar.setLeftIconOnClickListener((View v) -> finish());
     }
+
+    private UpdaterUtils updater = null;
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
@@ -34,15 +44,27 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference app_check_update = findPreference("app_check_update");
             Preference app_privacy_policy = findPreference("app_privacy_policy");
+            Preference app_about = findPreference("app_about");
 
+            Activity activity = getActivity();
+
+            assert activity != null;
             assert app_privacy_policy != null;
+            assert app_check_update != null;
+            assert app_about != null;
+
             app_privacy_policy.setOnPreferenceClickListener(preference -> {
                 CommonDialogs.showPrivacyPolicyAndAgreement(this.getActivity(), null);
                 return true;
             });
-            assert app_check_update != null;
             app_check_update.setOnPreferenceClickListener(preference -> {
-                //code for what you want it to do
+                UpdaterUtils.getInstance().checkUpdate(false);
+                activity.finish();
+                return true;
+            });
+            app_about.setOnPreferenceClickListener(preference -> {
+                UpdaterUtils.getInstance().checkUpdate(false);
+                activity.startActivity(new Intent(activity, AboutActivity.class));
                 return true;
             });
             app_check_update.setTitle(R.string.app_version);
@@ -58,5 +80,10 @@ public class SettingsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }

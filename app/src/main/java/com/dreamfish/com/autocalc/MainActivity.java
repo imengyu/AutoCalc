@@ -17,12 +17,15 @@ import com.dreamfish.com.autocalc.fragment.ConverterFragment;
 import com.dreamfish.com.autocalc.fragment.MainFragment;
 import com.dreamfish.com.autocalc.utils.AlertDialogTool;
 import com.dreamfish.com.autocalc.utils.MyFragmentAdapter;
+import com.dreamfish.com.autocalc.utils.PermissionsUtils;
 import com.dreamfish.com.autocalc.utils.StatusBarUtils;
+import com.dreamfish.com.autocalc.utils.UpdaterUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -32,14 +35,13 @@ import static com.dreamfish.com.autocalc.dialog.CommonDialogs.RESULT_SETTING_ACT
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         StatusBarUtils.setLightMode(this);
+        new UpdaterUtils(this);
 
         initResources();
         initControl();
@@ -179,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
     private void initMainMenu() {
         mainMenu = new PopupMenu(MainActivity.this, btn_settings);
         mainMenu.getMenuInflater().inflate(R.menu.menu_main, mainMenu.getMenu());
-
         mainMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_exit:
@@ -190,9 +191,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.action_settings:
                     CommonDialogs.showSettings(this);
-                    break;
-                case R.id.action_about:
-                    CommonDialogs.showAbout(this);
                     break;
                 case R.id.action_show_full:
                     fragmentMain.showFullText();
@@ -241,8 +239,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
 
 
 }

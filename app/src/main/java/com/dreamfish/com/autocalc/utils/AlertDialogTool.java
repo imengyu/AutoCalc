@@ -72,7 +72,6 @@ public class AlertDialogTool {
 
         Window window = dialog.getWindow();
         window.setGravity(Gravity.CENTER);
-        window.getDecorView().setPadding(0, 0, 0, 0);
 
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;

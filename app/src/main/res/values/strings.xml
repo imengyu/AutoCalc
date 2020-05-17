@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AutoCalc</string>
     <string name="app_description">一款超级简单的 Android 计算器</string>
-    <string name="app_version">V1.3 20200608</string>
+    <string name="app_version">V1.3.Dev-0517</string>
     <string name="app_copyright">© 2020 By 梦欤</string>
     <string name="app_description_long">这是一款超级简单的 Android 计算器，是梦欤的学习作品</string>
 
@@ -117,13 +117,30 @@
     <string name="settings_key_scientific_notation_max">自动科学计数法开始大小</string>
     <string name="settings_key_record_step">记录计算步骤</string>
     <string name="settings_key_record_step_summary">开启后可以显示当前算式的计算步骤，您可以在顶部按钮查看</string>
+    <string name="settings_key_auto_update">自动检查更新</string>
+    <string name="settings_key_version">当前版本，点击这里可检查更新</string>
+    <string name="settings_key_about">关于软件</string>
 
     <string name="settings_key_privacy_policy">隐私政策以及许可协议</string>
     <string name="settings_key_check_update">检查更新</string>
 
-    <string name="text_update_rate_failed">联网获取汇率失败！<br/>{0}</string>
+    <string name="text_update_rate_failed">联网获取汇率失败！<br />{0}</string>
     <string name="text_update_rate_success">联网更新汇率成功！{0}</string>
-    <string name="text_updating_rate">正在请求汇率数据<br/>请稍后</string>
+    <string name="text_updating_rate">正在请求汇率数据<br />请稍后</string>
+    <string name="text_check_update">正检查更新, 请稍后</string>
+    <string name="text_check_update_failed">检查更新失败, 请检查您的网络后重试</string>
+    <string name="text_new_update">软件有新版本啦，是否要更新?</string>
+    <string name="text_latest">您的软件版本是最新的</string>
+    <string name="text_update_to_latest">更新到最新版本</string>
+    <string name="text_do_not_update">暂不更新</string>
+    <string name="text_continue_update">仍然要更新</string>
+    <string name="text_new_ver">新版本：</string>
+    <string name="text_downloading_update">请稍后，正在下载更新，稍后将为您安装</string>
+    <string name="text_no_network">当前似乎未连上网哦，请连接网络后重试</string>
+    <string name="text_in_mobile_network">您当前处于移动网络中，可能会产生流量费用，是否继续</string>
+    <string name="text_downloading_update_title">AutoCalc 更新</string>
+    <string name="text_update_rate"><u>更新汇率</u></string>
+    <string name="text_rate_updated_at">汇率数据更新于 </string>
 
     <!-- agreement -->
     <string name="text_agreement_base_welecome">
@@ -141,7 +158,12 @@
 
     <string name="text_agreement_interenet">网络</string>
     <string name="text_agreement_interenet_sub">
-        包括IP地址；帮助我们统计产品使用情况，以及更新数据、反馈产品BUG，帮助我们不断改进产品功能和体验。
+        包括IP地址；我们需要联网下载计算数据；以及帮助我们统计产品使用情况、反馈产品BUG，帮助我们不断改进产品功能和体验。
+    </string>
+
+    <string name="text_agreement_write_storage">读写存储</string>
+    <string name="text_agreement_write_storage_sub">
+        我们需要临时写入程序数据、程序计算缓存等等。
     </string>
 
     <string name="text_agreement_lost">如果您不同意或拒绝授予这些权限，您将无法使用 App 的部分或全部功能。</string>

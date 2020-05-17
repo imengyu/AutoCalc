@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dreamfish.com.autocalc.AboutActivity;
 import com.dreamfish.com.autocalc.HelpActivity;
 import com.dreamfish.com.autocalc.MainActivity;
 import com.dreamfish.com.autocalc.R;
@@ -20,24 +21,16 @@ import androidx.appcompat.app.AlertDialog;
 public class CommonDialogs {
 
   public static final int RESULT_SETTING_ACTIVITY = 0;
+  public static final int RESULT_REQUEST_PERMISSION = 101;
 
   public static void showHelp(Activity activity) {
     activity.startActivity(new Intent(activity, HelpActivity.class));
   }
+  public static void showAbout(Activity activity) {
+    activity.startActivity(new Intent(activity, AboutActivity.class));
+  }
   public static void showSettings(Activity activity) {
     activity.startActivityForResult(new Intent(activity, SettingsActivity.class), RESULT_SETTING_ACTIVITY);
-  }
-  public static void showAbout(Activity activity)  {
-
-    LayoutInflater inflater = LayoutInflater.from(activity);
-    View v = inflater.inflate(R.layout.dialog_about, null);
-
-    AlertDialog dialog = AlertDialogTool.buildCustomBottomPopupDialog(activity, v);
-    dialog.show();
-
-    v.findViewById(R.id.btn_privacy_policy).setOnClickListener(view -> { dialog.dismiss(); showPrivacyPolicyAndAgreement(activity, null); });
-    v.findViewById(R.id.btn_help).setOnClickListener(view -> { dialog.dismiss(); showHelp(activity); });
-    v.findViewById(R.id.btn_ok).setOnClickListener(view -> dialog.dismiss());
   }
 
   public interface OnAgreementCloseListener {

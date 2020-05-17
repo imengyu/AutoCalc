@@ -270,7 +270,7 @@ c    <group name="weight" base="0" def1="0" def2="1">
         <item name="太字节（TB）" shortName="TB"><base>8796093022208</base></item>
         <item name="拍字节（PB）" shortName="PB"><base>9007199254740992</base></item>
     </group>
-    <group name="exchange_rate" base="0" def1="1" def2="2">
+    <group name="exchange_rate" base="0" def1="0" def2="1">
 
         <item name="人民币" shortName="CNY"><base>1</base></item>
         <item name="美元" shortName="USD"><base>0</base></item>

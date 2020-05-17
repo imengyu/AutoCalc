@@ -26,6 +26,7 @@
             android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoLink="all"
             android:text="@string/text_title"
             android:textAlignment="center"
             android:textSize="18sp" />

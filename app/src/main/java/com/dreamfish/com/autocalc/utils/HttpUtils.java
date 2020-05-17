@@ -29,7 +29,6 @@ public class HttpUtils {
    * 简单请求 http 获取JSON
    * @param url URL
    * @return 返回 JSONObject
-   * @throws IOException
    */
   public static JSONObject httpGetJson(String url) throws IOException {
     OkHttpClient client = new OkHttpClient();

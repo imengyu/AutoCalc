@@ -81,9 +81,22 @@
         app:title="@string/settings_about_header">
 
         <Preference
+            app:title="@string/settings_key_about"
+            app:iconSpaceReserved="false"
+            app:key="app_about" />
+
+        <Preference
             app:title="@string/settings_key_check_update"
             app:iconSpaceReserved="false"
+            app:summary="@string/settings_key_version"
             app:key="app_check_update" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="calc_auto_update"
+            app:title="@string/settings_key_auto_update" />
+
         <Preference
             app:title="@string/settings_key_privacy_policy"
             app:iconSpaceReserved="false"

@@ -39,6 +39,7 @@ import com.dreamfish.com.autocalc.item.adapter.FunctionsListAdapter;
 import com.dreamfish.com.autocalc.utils.AlertDialogTool;
 import com.dreamfish.com.autocalc.utils.ExceptionUtils;
 import com.dreamfish.com.autocalc.utils.PixelTool;
+import com.dreamfish.com.autocalc.utils.UpdaterUtils;
 import com.dreamfish.com.autocalc.widgets.AutofitTextView;
 
 import java.math.BigDecimal;
@@ -76,8 +77,8 @@ public class MainFragment extends Fragment {
     initAllControls();
     initHistory();
     initResources();
+    initCalc();
 
-    autoCalc = new AutoCalc();
     vibrator = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
 
     layout_top.setVerticalFadingEdgeEnabled(true);
@@ -97,6 +98,10 @@ public class MainFragment extends Fragment {
       layout_top.postDelayed(() -> {
         layout_top.fullScroll(ScrollView.FOCUS_DOWN);
         inited = true;
+
+        if(autoCheckUpdate)
+          UpdaterUtils.getInstance().checkUpdate(true);
+
       }, 1050);
     });
   }
@@ -443,6 +448,15 @@ public class MainFragment extends Fragment {
     text_auto_bc_error = (String) resources.getText(R.string.text_auto_bc_error);
     text_mode_expand = resources.getString(R.string.text_mode_expand);
     text_mode_programmer = resources.getString(R.string.text_mode_programmer);
+  }
+  private void initCalc() {
+    autoCalc = new AutoCalc();
+    //debug functions
+    autoCalc.addCalcFunctionActuatorSolver("test2", 0, false, false,
+            (formula, ulaBuffer, functionName, adians, params) -> {
+              UpdaterUtils.getInstance().askForUpdate();
+              return "";
+            }, "");
   }
 
   //Text
@@ -968,6 +982,7 @@ public class MainFragment extends Fragment {
   private boolean recordStep = false;
   private boolean isdeg = true;
   private boolean useTouchVibrator = true;
+  private boolean autoCheckUpdate = true;
 
   private void loadSettings() {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -981,6 +996,7 @@ public class MainFragment extends Fragment {
     calcScale = prefs.getInt("calc_computation_accuracy", 8);
     scientificNotationMax = prefs.getInt("calc_scientific_notation_max", 100000);
     autoScientificNotation = prefs.getBoolean("calc_auto_scientific_notation", true);
+    autoCheckUpdate = prefs.getBoolean("calc_auto_update", true);
   }
   private void saveSettings() {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

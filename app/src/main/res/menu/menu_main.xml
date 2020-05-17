@@ -5,10 +5,6 @@
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings" />
-
-    <item
-        android:id="@+id/action_about"
-        android:title="@string/action_about" />
     <item
         android:id="@+id/action_help"
         android:title="@string/action_help" />

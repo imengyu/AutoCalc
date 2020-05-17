@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dreamfish.com.autocalc.R;
+import com.dreamfish.com.autocalc.config.ConstConfig;
 import com.dreamfish.com.autocalc.core.AutoCalc;
 import com.dreamfish.com.autocalc.item.converter.ConverterData;
 import com.dreamfish.com.autocalc.item.converter.ConverterDataGroup;
@@ -106,14 +107,13 @@ public class ConverterFragment extends Fragment {
   private String text_update_rate_failed;
   private String text_updating_rate;
 
-
   private LinearLayout layout_root;
 
-  private View view_input_one;
-  private View view_input_two;
-  private View view_cv_one;
   private View view_cv_two;
+  private View view_cv_one;
+  private View view_exchange_rate_info;
   private TextView text_input_one;
+  private TextView text_ex_rate_time;
   private TextView text_input_two;
   private Button btn_pad_number_negative;
   private Button btn_unit_choose_one;
@@ -128,6 +128,7 @@ public class ConverterFragment extends Fragment {
   private ConverterItem currentInputItem = null;
   private List<ConverterItem> currentInputs = new ArrayList<>();
   private int currentSetUnitItemIndex = 0;
+  private int currentConverter = 0;
 
   //设置模式
   //=====================
@@ -136,6 +137,7 @@ public class ConverterFragment extends Fragment {
     converterItem.updateUnitData(currentConvertGroup.getGroup().get(choosedIndex));
   }
   private void setConverter(int converter) {
+    currentConverter = converter;
 
     if(onModeChangedListener != null)
       onModeChangedListener.onModeChanged(converts_texts[converter]);
@@ -154,8 +156,12 @@ public class ConverterFragment extends Fragment {
     hideErr();
 
     //汇率数据请求
-    if(currentConvertGroup.getName().equals("exchange_rate") && !exchangeRateDataRequested)
-      requestExchangeRate();
+    if(currentConvertGroup.getName().equals("exchange_rate")){
+      if(!exchangeRateDataRequested) requestExchangeRate();
+      else view_exchange_rate_info.setVisibility(View.VISIBLE);
+    }else
+      view_exchange_rate_info.setVisibility(View.GONE);
+
 
     //Set default index
     for (int i1 = 0; i1 < currentInputs.size() && i1 < ConverterDataGroup.MAX_ONEPAGE_CONVERTER_COUNT; i1++) {
@@ -245,14 +251,16 @@ public class ConverterFragment extends Fragment {
     text_input_one = view.findViewById(R.id.text_input_one);
     text_input_two = view.findViewById(R.id.text_input_two);
 
+    view_exchange_rate_info = view.findViewById(R.id.view_exchange_rate_info);
+
     btn_unit_choose_one = view.findViewById(R.id.btn_unit_choose_one);
     btn_unit_choose_two = view.findViewById(R.id.btn_unit_choose_two);
 
     currentInputs.add(new ConverterItem(autoCalc, text_input_one, view.findViewById(R.id.text_unit_one), btn_unit_choose_one));
     currentInputs.add(new ConverterItem(autoCalc, text_input_two, view.findViewById(R.id.text_unit_two), btn_unit_choose_two));
 
-    view_input_one = view.findViewById(R.id.view_input_one);
-    view_input_two = view.findViewById(R.id.view_input_two);
+    View view_input_one = view.findViewById(R.id.view_input_one);
+    View view_input_two = view.findViewById(R.id.view_input_two);
     view_cv_one = view.findViewById(R.id.view_cv_one);
     view_cv_two = view.findViewById(R.id.view_cv_two);
 
@@ -275,9 +283,12 @@ public class ConverterFragment extends Fragment {
       chooseUnitDialog.show();
     });
 
+    text_ex_rate_time = view.findViewById(R.id.text_ex_rate_time);
     text_err = view.findViewById(R.id.text_err);
     view_err = view.findViewById(R.id.view_err);
     btn_retry = view.findViewById(R.id.btn_retry);
+
+    view.findViewById(R.id.btn_update_rate).setOnClickListener(v -> requestExchangeRate());
   }
   private void initLayout(View view) {
 
@@ -531,7 +542,7 @@ public class ConverterFragment extends Fragment {
 
       try {
         Thread.sleep(700);
-        JSONObject object = HttpUtils.httpGetJson("http://localhost:3011");
+        JSONObject object = HttpUtils.httpGetJson(ConstConfig.URL_GET_EXCHANGERATE);
         if(object.getBoolean("success")) {
           JSONArray array = object.getJSONArray("data");
           ConverterDataGroup convertGroupRate = null;
@@ -565,6 +576,9 @@ public class ConverterFragment extends Fragment {
           Toast.makeText(ConverterFragment.this.getContext(),
                   MessageFormat.format(text_update_rate_success, DateUtils.format(new Date())), Toast.LENGTH_LONG).show();
           requestingExchangeRateDialog.cancel();
+          setConverter(currentConverter);
+          text_ex_rate_time.setText(DateUtils.format(new Date(), DateUtils.FORMAT_SHORT_CN));
+          view_exchange_rate_info.setVisibility(View.VISIBLE);
         });
       }
       else {
@@ -572,6 +586,7 @@ public class ConverterFragment extends Fragment {
           showErr(MessageFormat.format(text_update_rate_failed, requestingExchangeRateErr),
                   true, (v) -> requestExchangeRate());
           requestingExchangeRateDialog.cancel();
+          view_exchange_rate_info.setVisibility(View.GONE);
         });
       }
     }).start();
