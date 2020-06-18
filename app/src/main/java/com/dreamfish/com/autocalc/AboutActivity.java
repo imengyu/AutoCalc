@@ -25,5 +25,8 @@ public class AboutActivity extends AppCompatActivity {
     findViewById(R.id.btn_ok).setOnClickListener((v) -> {
       finish();
     });
+    findViewById(R.id.btn_help).setOnClickListener((v) -> {
+      CommonDialogs.showHelp(this);
+    });
   }
 }

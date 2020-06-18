@@ -63,8 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             });
             app_about.setOnPreferenceClickListener(preference -> {
-                UpdaterUtils.getInstance().checkUpdate(false);
-                activity.startActivity(new Intent(activity, AboutActivity.class));
+                CommonDialogs.showAbout(activity);
                 return true;
             });
             app_check_update.setTitle(R.string.app_version);

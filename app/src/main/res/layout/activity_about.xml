@@ -87,6 +87,16 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_round"
+                android:text="@string/action_help"
+                android:textColor="@android:color/black" />
+
+            <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,6 +105,7 @@
                 android:background="@drawable/btn_calculate"
                 android:text="@string/action_ok"
                 android:textColor="@android:color/white" />
+
         </LinearLayout>
     </LinearLayout>
 
