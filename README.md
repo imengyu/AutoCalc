@@ -3,7 +3,7 @@
 
 ---
 
-![image](https://github.com/imengyu/AutoCalc/blob/master/app/src/main/assets/img/help1.png?raw=true)
+![image](https://github.com/imengyu/AutoCalc/blob/master/image.png)
 
 ---
 
