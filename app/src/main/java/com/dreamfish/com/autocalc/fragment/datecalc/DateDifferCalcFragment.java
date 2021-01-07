@@ -132,51 +132,82 @@ public class DateDifferCalcFragment extends Fragment {
     calendar2.setTime(choosedTimeEndS);
 
 
-    int day1 = calendar1.get(Calendar.DAY_OF_YEAR);
-    int day2 = calendar2.get(Calendar.DAY_OF_YEAR);
-    int dayMonth1 = calendar1.get(Calendar.DAY_OF_MONTH);
-    int dayMonth2 = calendar2.get(Calendar.DAY_OF_MONTH);
+    int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
+    int day2 = calendar2.get(Calendar.DAY_OF_MONTH);
     int year1 = calendar1.get(Calendar.YEAR);
     int year2 = calendar2.get(Calendar.YEAR);
     int month1 = calendar1.get(Calendar.MONTH);
     int month2 = calendar2.get(Calendar.MONTH);
 
-    int days;
-    int years = Math.abs(year1 - year2);
-
+    int daysAll = 0;
+    int daysOverlap = 0;
     int months = 0;
+    int monthsOverlap = 0;
 
-    if (years > 0) {
-      int timeDistance = 0;
-      for (int i = year1; i < year2; i++) { //闰年
+    //
+    //2020/12/07  2021/01/07
+    //
+
+    int years = year2 - year1;
+    if(year1 <= year2) {
+      //计算相差年数
+      for (int i = year1; i <= year2; i++) { //闰年
         if (i % 4 == 0 && i % 100 != 0 || i % 400 == 0) {
-          timeDistance += 366;
+          daysAll += 366;
         } else { // 不是闰年
-          timeDistance += 365;
+          daysAll += 365;
         }
+        months += 12;
       }
-      days = timeDistance + Math.abs(day2 - day1);
-      months = years * 12 + Math.abs(month2 - month1);
-    } else {
-      days = Math.abs(day2 - day1);
-      months = Math.abs(month2 - month1);
+
+      years -= 2;
+
+      //同年
+      if(year1 == year2) {
+        int month1Days = DateUtils.getDayOfMonth(month1, year1);
+        monthsOverlap = month2 - month1 - 1;
+        daysOverlap += month1Days - day1;
+        daysOverlap += day2;
+        daysAll = daysOverlap;
+        if(daysOverlap > month1Days) {
+          monthsOverlap++;
+          daysOverlap -= month1Days;
+        }
+      } else {
+
+        //减去第一年的月天数
+        for (int i = 1; i <= month1; i++) {
+          if (i == month1) {
+            daysAll -= day1;
+            daysOverlap += DateUtils.getDayOfMonth(i, year1) - day1;
+          } else
+            daysAll -= DateUtils.getDayOfMonth(i, year1);
+          months--;
+        }
+        //加上最后一年的月天数
+        for (int i = 1; i <= month2; i++) {
+          if (i == month2) {
+            daysAll += day2 + 1;
+            daysOverlap += day2;
+          } else {
+            daysAll -= DateUtils.getDayOfMonth(i, year2);
+            months++;
+          }
+        }
+        //减去最后一年的月数和天数
+        for (int i = month2; i <= 12; i++) {
+          if (i == month2) daysAll -= DateUtils.getDayOfMonth(i, year2) - day2;
+          else daysAll -= DateUtils.getDayOfMonth(i, year2);
+          months--;
+        }
+
+        monthsOverlap = months % 12;
+      }
     }
 
-    if (days == 0) {
-      text_result_date.setText(text_same_day);
+    if (daysAll <= 0) {
+      System.out.println("同一天");
       return;
-    }
-
-    int daySub = months > 0 ? ((DateUtils.getDayOfMonth(month1, year1) - dayMonth1)
-            + dayMonth2) : Math.abs(dayMonth2 - dayMonth1);
-    int monthSub = months - years * 12 - 1;
-
-    if (dayMonth1 == dayMonth2) {
-      monthSub++;
-      daySub = 0;
-    } else if (daySub >= DateUtils.getDayOfMonth(month1, year1)) {
-      monthSub++;
-      daySub -= DateUtils.getDayOfMonth(month1, year1);
     }
 
     StringBuilder result = new StringBuilder();
@@ -186,14 +217,14 @@ public class DateDifferCalcFragment extends Fragment {
       result.append(text_year);
       result.append(", ");
     }
-    if (monthSub > 0) {
-      result.append(monthSub);
+    if (monthsOverlap > 0) {
+      result.append(monthsOverlap);
       result.append(" ");
       result.append(text_month);
       result.append(", ");
     }
-    if (daySub > 0) {
-      result.append(daySub);
+    if (daysOverlap > 0) {
+      result.append(daysOverlap);
       result.append(" ");
       result.append(text_day);
     }
@@ -201,7 +232,7 @@ public class DateDifferCalcFragment extends Fragment {
     result.append("\n");
     result.append(text_all);
     result.append(" ");
-    result.append(days);
+    result.append(daysAll);
     result.append(" ");
     result.append(text_day);
 

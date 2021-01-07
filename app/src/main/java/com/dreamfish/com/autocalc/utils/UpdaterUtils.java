@@ -27,6 +27,7 @@ import com.dreamfish.com.autocalc.R;
 import com.dreamfish.com.autocalc.config.ConstConfig;
 
 import java.io.File;
+import java.util.Base64;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
@@ -129,16 +130,17 @@ public class UpdaterUtils {
         Thread.sleep(900);
         JSONObject object = HttpUtils.httpGetJson(ConstConfig.URL_CHECK_UPDATE +
                 packageInfo.versionCode);
-        if(object != null && object.getBoolean("success")) {
-          JSONObject data = object.getJSONObject("data");
-          if(data.getBoolean("latest")) checkingLatest = true;
-          else{
-            checkingLatest = false;
-            checkingUpdateNewVer = data.getString("newVerUser");
-            checkingUpdateNewIntrod = data.getString("newIntroduce");
-          }
-          success = true;
-        }else checkingUpdateErr = object.getString("data");
+        if(object != null) {
+          if (object.getInteger("code") == 200) {
+            if (!object.getBoolean("update")) checkingLatest = true;
+            else {
+              checkingLatest = false;
+              checkingUpdateNewVer = object.getString("ver");
+              checkingUpdateNewIntrod = Base64Utils.decode(object.getString("text"));
+            }
+            success = true;
+          } else checkingUpdateErr = object.getString("message");
+        } else checkingUpdateErr = "未知错误";
       } catch (Exception e) {
         e.printStackTrace();
         checkingUpdateErr = e.getMessage();

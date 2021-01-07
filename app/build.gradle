@@ -6,8 +6,8 @@ android {
         applicationId "com.dreamfish.com.autocalc"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.3.Dev-0517"
+        versionCode 3
+        versionName '1.4.Dev-17'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
