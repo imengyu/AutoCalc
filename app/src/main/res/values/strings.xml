@@ -146,10 +146,10 @@
     <string name="text_agreement_base_welecome">
         欢迎使用 AutoCalc ！
         \nAutoCalc 非常重视您的隐私和个人信息保护。
-        \n在您使用 AutoCalc 前，请认真阅读 <a href="https://imyzc.com/t?x=autocalc_argeement">《用户协议》</a> 及 <a href="https://imyzc.com/t?x=privacy_policy">《隐私政策》</a> ，您同意并接受全部条款后方可开始使用“AutoCalc”。
+        \n在您使用 AutoCalc 前，请认真阅读 <a href="https://imengyu.top/linkJump/?to=autocalc_argeement">《用户协议》</a> 及 <a href="https://imengyu.top/linkJump/?to=privacy_policy">《隐私政策》</a> ，您同意并接受全部条款后方可开始使用“AutoCalc”。
         \n另外为了更好地使用产品功能，需征求您的允许，获得以下权限：
     </string>
-    <string name="text_agreement_base"><a href="https://imyzc.com/t?x=autocalc_argeement">《用户协议》</a>\n<a href="https://imyzc.com/t?x=privacy_policy">《隐私政策》</a>
+    <string name="text_agreement_base"><a href="https://imengyu.top/linkJump/?to=autocalc_argeement">《用户协议》</a>\n<a href="https://imengyu.top/linkJump/?to=privacy_policy">《隐私政策》</a>
         \n\n为了更好地使用产品功能，应用还征求您的允许获得以下权限：
     </string>
 
